@@ -16,7 +16,7 @@ export default function PostCard({ profile, name, image, date, desc }) {
                 <img src={image} alt="img" className="w-full h-full bg-lime-500" />
             </div>
             <div className={(descOverFlow?"h-auto":"" )+" px-5"}>
-                <p className={(descOverFlow?"":`truncate w-[300px]`)+" font-medium py-3 text-justify"} onClick={()=>{setDescOverFlow(!descOverFlow)}}>{desc}</p>
+                <p className={(descOverFlow?"":`truncate`)+" font-medium py-3 text-justify"} onClick={()=>{setDescOverFlow(!descOverFlow)}}>{desc}</p>
             </div>
             <div className="h-[25px] flex items-center ml-5 mb-2 font-thin">
                 <p>{date}</p>

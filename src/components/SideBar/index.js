@@ -9,8 +9,8 @@ export default function SideBar({toggle}){
             title : "Home"
         },
         {
-            to : "/login",
-            title : "Login"
+            to : "/signup",
+            title : "Sign Up"
         },
         {
             to : "/profile",
