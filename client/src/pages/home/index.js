@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import PostCard from "../../components/Card";
+import axios from "axios";
 
 export default function Home(){
+
+    async function getData(){
+        await axios.get('http://localhost:3001/getPost').then((e)=>{
+            console.log(e);
+        })
+    }
+
+    useEffect(()=>{
+        getData()
+    },[])
     
 const data = [
     {
