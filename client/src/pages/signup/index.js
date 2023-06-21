@@ -1,24 +1,20 @@
 import Button from "../../components/Button";
 import InputField from "../../components/InputField";
-import { db,auth } from "../../config/config";
+import { auth } from "../../config/config";
 
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export function SignUp(){
+
+    const navigate = useNavigate()
 
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
-
-    const data = {
-        name: name,
-        mail: mail,
-        number: number
-    }
 
     async function send(){
         if(name==='' || number==='' || mail==='' || pass===''){
@@ -26,9 +22,12 @@ export function SignUp(){
         }else{
             try{
                 const user = await createUserWithEmailAndPassword(auth,mail,pass)
-                await setDoc(doc(db,"users",mail),data).then(()=>{
-                    window.location.href = "/"
+                await axios.post('http://localhost:3001/newUser',{
+                    name: name,
+                    mail: mail,
+                    number: number
                 })
+                navigate('/')
             }catch(error){
                 console.log(error.message);
             }
@@ -36,14 +35,14 @@ export function SignUp(){
     }
 
     return(
-        <div className="h-[90vh] w-[100vw] flex flex-col items-center justify-center">
+        <div className="h-full w-100 flex flex-col items-center justify-center">
             <h2 className="mb-4 font-bold text-xl font-mono">SIGN UP FORM</h2>
             <div className="bg-gray-300 flex flex-col items-center justify-center p-12 rounded">
                 <InputField placeholder="Enter Your Name" type="text" onChange={(e)=>setName(e.target.value)}/>
                 <InputField placeholder="Enter Your Phone Number" type="number" onChange={(e)=>setNumber(e.target.value)}/>
                 <InputField placeholder="Enter Your E-Mail" type="mail" onChange={(e)=>setMail(e.target.value)}/>
                 <InputField placeholder="Enter Your Password" type="password" onChange={(e)=>setPass(e.target.value)}/>
-                <Button title="Submit" to="" active={true} onClick={send}/>
+                <Button title="Sign Up" to="" active={true} onClick={send}/>
             </div>
             <div className="mt-3">Already have an Account? 
                 <span className="text-blue-800 font-medium cursor-pointer ml-1">

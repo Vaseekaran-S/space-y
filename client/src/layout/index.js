@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
+import { auth } from "../config/config";
 
 export default function Layout({children}){
 
@@ -17,9 +18,9 @@ export default function Layout({children}){
             </div>
             <div className="flex">
                 <div className="h-[90vh] bg-gray-500 fixed md:static top-[60px] left-0">
-                    {sideBar?<SideBar toggle={toggle} />:""}
+                    {sideBar?<SideBar auth={auth?.currentUser?.email} toggle={toggle} />:""}
                 </div>
-                <div className="">
+                <div className="w-full">
                     {children}
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux'
 
 import './index.css';
 import Home from './pages/home';
@@ -9,10 +10,12 @@ import Layout from './layout';
 import Profile from './pages/profile';
 import Login from './pages/login';
 import AddPost from './pages/addPost';
+import store from './store'
 
 export default function App() {
 
   return (
+    <Provider store={store}>
       <BrowserRouter>
         <Layout>
           <Routes>
@@ -24,6 +27,7 @@ export default function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
+    </Provider>
   )
 }
 

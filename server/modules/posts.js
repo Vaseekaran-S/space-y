@@ -1,11 +1,19 @@
 const mongoose = require('mongoose')
 
 const posts = new mongoose.Schema({
-    post : {
+    mail: {
         type: String,
         require: true
     },
-    image:{
+    desc: {
+        type: String,
+        require: true
+    },
+    image: {
+        type: String,
+        require: true
+    },
+    date: {
         type: String,
         require: true
     }
