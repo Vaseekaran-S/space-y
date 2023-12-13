@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "start index.js",
+    "build": "build index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
