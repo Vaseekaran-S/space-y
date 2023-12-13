@@ -12,6 +12,7 @@
     "dotenv": "^16.3.1",
     "firebase": "^9.22.2",
     "firebase-admin": "^11.9.0",
+    "nodemon": "^3.0.2",
     "os-browserify": "^0.3.0",
     "path": "^0.12.7",
     "react": "^18.2.0",
@@ -26,6 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "nodemon index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

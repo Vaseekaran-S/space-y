@@ -17,7 +17,7 @@ const Users = require('./modules/users')
 const mongoURI = process.env.MONGO_API
 mongoose.connect(mongoURI).then(() =>{
      console.log("MongoDB connected")
-    }) .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 
 //New Users 
 
@@ -60,14 +60,27 @@ app.post('/addPost',async (req,res)=>{
     }
 })
 
-app.get('/getPost', (req,res)=>{
-    Post.find({}).then(e=>{
+app.get('/getPost',async (req,res)=>{
+    await Post.find({}).then(e=>{
         res.send(e)
     }).catch(err=>{
         res.status(500).send(err)        
     })
 })
 
+//Specific User
+
+app.get('/:id',async (req,res)=>{
+    const profile = await Users.find({"mail":req.params.id})
+    const post = await Post.find({"mail":req.params.id})
+    const data = {
+        profile: profile,
+        posts: post
+    }
+    res.send(data)
+})
+
+
 app.listen(3001,()=>{
-    console.log("Server Running");
+    console.log("Server Running http://localhost:3001");
 })

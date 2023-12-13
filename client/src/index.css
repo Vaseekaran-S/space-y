@@ -39,3 +39,34 @@ code {
 .loading-spinner-active{
   display: block;
 }
+
+.heart{
+  width: 15px;
+  height: 15px;
+  transform: rotate(45deg);
+  position: relative;
+  background: white;
+  margin: 15px auto;
+}
+.heart::before, .heart::after{
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+}
+.heart::before{
+  left: -10px;
+}
+.heart::after{
+  top: -10px;
+}
+
+.liked-heart{
+  background: red;
+}
+
+.liked-heart::before, .liked-heart::after{
+  background: red;
+}

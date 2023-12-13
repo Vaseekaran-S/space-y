@@ -10,7 +10,8 @@ import Layout from './layout';
 import Profile from './pages/profile';
 import Login from './pages/login';
 import AddPost from './pages/addPost';
-import store from './store'
+import store from "./redux/store/store"
+import UserInfo from './pages/userInfo';
 
 export default function App() {
 
@@ -22,6 +23,7 @@ export default function App() {
             <Route path='/' element={<Home />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path={`/:id`} element={<UserInfo />} />
             <Route path='/login' element={<Login />} />
             <Route path='/add' element={<AddPost />} />
           </Routes>

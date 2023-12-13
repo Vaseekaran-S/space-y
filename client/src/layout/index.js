@@ -13,7 +13,7 @@ export default function Layout({children}){
 
     return(
         <div>
-            <div className='sticky top-0'>
+            <div className='sticky top-0 z-10'>
                 <NavBar toggle={toggle} state={sideBar}/>
             </div>
             <div className="flex">

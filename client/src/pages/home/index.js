@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import PostCard from "../../components/Card";
 import axios from "axios";
 
-export default function Home(props){
-    const { counter, increment, decrement } = props;
+export default function Home(){
 
     const [post, setPost] = useState([])
 
@@ -11,6 +10,8 @@ export default function Home(props){
         axios.get('http://localhost:3001/getPost').then((e)=>{
             setPost(e.data)
             console.log(post);
+        }).catch(err=>{
+            console.log(err);
         })
     }
 

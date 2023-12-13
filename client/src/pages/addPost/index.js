@@ -70,7 +70,6 @@ function AddPost() {
 
     }
 
-
   }
 
   return (
@@ -79,11 +78,11 @@ function AddPost() {
         <h2 className="m-4 font-bold text-xl font-mono">ADD POST</h2>
         <div className="bg-gray-300 flex flex-col items-center justify-center p-12 rounded">
           <div className='md:flex justify-between mb-[20px] md:w-[50vw] w-[60vw]'>
-            <div>
+            <div className='lg:w-1/2'>
               <h2 className='mb-5 font-bold text-2xl'>USER : {auth?.currentUser?.email}</h2>
-              <textarea cols={50} rows={8} onChange={(e)=>setDesc(e.target.value)} placeholder="Enter Description" className='mb-5 w-[350px] rounded border-[1px] border-black'></textarea>
+              <textarea rows={8} onChange={(e)=>setDesc(e.target.value)} placeholder="Enter Description" className='mb-5 w-full rounded border-[1px] border-black'></textarea>
             </div>
-            <div>
+            <div className='lg:w-1/2 flex items-center justify-center'>
               <div className='w-[250px] h-[250px] bg-gray-800 rounded flex items-center justify-center' onDrop={handleDrop} onDragOver={handleDragOver}>
                 <InputField forwardref={inputRef} type="file" onChange={currentImage} hidden accept={"*"}/>
                 <button onClick={uploadImage} className='text-white fond-medium p-5 border-dashed rounded border-2 border-white absolute'>UPLOAD IMAGE</button>

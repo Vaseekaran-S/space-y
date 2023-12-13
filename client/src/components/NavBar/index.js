@@ -25,7 +25,7 @@ export default function NavBar({toggle,state}){
                     <h3 className="font-bold text-xl text-white ml-3">SPACE Y</h3>
                 </div>
                 {(currentUser?.email)?
-                    <Avatar size='40' round={true} name={currentUser?.email} onClick={()=>navigate('/')} className='cursor-pointer'/>
+                    <Avatar size='40' round={true} name={currentUser?.email} onClick={()=>{(window.location.pathname=='/profile')?navigate('/'):navigate('/profile')}} className='cursor-pointer'/>
                     :
                     <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/signup')} className='cursor-pointer' round={true}/>
                 }
