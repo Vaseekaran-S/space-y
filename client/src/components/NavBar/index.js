@@ -1,21 +1,12 @@
 
 import { TbLayoutNavbarExpand, TbLayoutNavbarCollapse } from 'react-icons/tb'
-import { auth } from '../../config/config'
 import Avatar from 'react-avatar'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function NavBar({toggle,state}){
     const navigate = useNavigate()
-    
     const [currentUser, setCurrentUser] = useState('')
-    
-    useEffect(()=>{        
-        onAuthStateChanged(auth, (e)=>{
-            setCurrentUser(e)
-        })
-    },[])
 
     return(
         <div>

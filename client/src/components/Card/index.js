@@ -2,22 +2,15 @@
 import { useState } from "react"
 import Avatar from "react-avatar"
 import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-
-import {likedPost} from '../../redux/reducers/reducer'
-import axios from "axios"
 
 export default function PostCard({ profile, name, image, date, desc }) {
 
     const navigate = useNavigate()
-    
-    const dispatch = useDispatch()
     const [descOverFlow, setDescOverFlow] = useState(false)
     const [liked, setLiked] = useState(false)
 
     function isLiked(id){
         setLiked(!liked)
-        dispatch(likedPost())
     }
 
     return (

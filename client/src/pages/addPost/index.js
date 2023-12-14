@@ -4,7 +4,6 @@ import InputField from '../../components/InputField'
 import Button from '../../components/Button'
 import axios from 'axios';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { auth } from '../../config/config';
 import { useNavigate } from 'react-router-dom';
 
 const storage = getStorage()
