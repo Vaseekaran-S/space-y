@@ -2,18 +2,23 @@
 import { TbLayoutNavbarExpand, TbLayoutNavbarCollapse } from 'react-icons/tb'
 import Avatar from 'react-avatar'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-export default function NavBar({toggle,state}){
+export default function NavBar(){
     const navigate = useNavigate()
     const [currentUser, setCurrentUser] = useState('')
 
     return(
-        <div>
-            <div className="h-[10vh] bg-gray-800 flex items-center justify-between px-5">
+        <>
+            <div className="h-[10vh] flex items-center justify-between px-5 shadow-lg z-50 bg-white">
                 <div className='flex'>
-                    {state?<TbLayoutNavbarExpand onClick={toggle} className='w-[30px] h-[30px] text-white'/>:<TbLayoutNavbarCollapse onClick={toggle} className='w-[30px] h-[30px] text-white'/>}
-                    <h3 className="font-bold text-xl text-white ml-3">SPACE Y</h3>
+                    <Link href="/">
+                        <img src='/logo.png' className='h-[10vh] object-contain w-full'/>
+                    </Link>
+                </div>
+                <div className='relative border-2 bg-gray-200 rounded flex items-center justify-center'>
+                    <p className='absolute right-0'>🔍</p>
+                    <input type='text' placeholder='Search...' className='block w-full pr-6 p-1 px-2 bg-transparent focus:border-gray-100'/>
                 </div>
                 {(currentUser?.email)?
                     <Avatar size='40' round={true} name={currentUser?.email} onClick={()=>{(window.location.pathname=='/profile')?navigate('/'):navigate('/profile')}} className='cursor-pointer'/>
@@ -21,6 +26,6 @@ export default function NavBar({toggle,state}){
                     <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/signup')} className='cursor-pointer' round={true}/>
                 }
             </div>
-        </div>
+        </>
     )
 }

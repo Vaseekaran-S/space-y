@@ -1,8 +1,9 @@
+import { Field } from "formik";
 
 export default function InputField({forwardref,...props}){
     return(
-        <div className="pb-5">
-            <input type="text" className="w-[200px] h-[35px] text-sm border border-black rounded pl-3 pt-[3px] bg-white" {...props} ref={forwardref}/>
-        </div>
+        <>
+            <Field type="text" className="w-[250px] max-w-md h-[35px] text-black text-sm border focus:outline-none focus:border-black bg-gray-100 p-3 placeholder-black-900" {...props} ref={forwardref}/>
+        </>
     )
 }

@@ -27,6 +27,11 @@ export default function SideBar({auth,toggle}){
             to : "/signup",
             title : "Sign Up",
             isLogin: !auth
+        },
+        {
+            to : "/login",
+            title : "Login",
+            isLogin: !auth
         }
     ]
 
