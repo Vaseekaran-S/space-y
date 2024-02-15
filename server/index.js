@@ -11,13 +11,22 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
 
-const Post = require('./modules/posts')
-const Users = require('./modules/users')
-
 const mongoURI = process.env.MONGO_API
 mongoose.connect(mongoURI).then(() =>{
      console.log("MongoDB connected")
     }).catch((err) => console.log(err));
+
+
+// User SignUp
+
+const signupRouter = require("./routes/signup.routes")
+app.use("/signup", signupRouter)
+
+
+// Old Requests
+
+const Post = require('./modules/posts')
+const Users = require('./modules/users')
 
 //New Users 
 
