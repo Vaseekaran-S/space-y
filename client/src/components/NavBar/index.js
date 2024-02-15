@@ -12,7 +12,7 @@ export default function NavBar(){
         <>
             <div className="h-[10vh] flex items-center justify-between px-5 shadow-lg z-50 bg-white">
                 <div className='flex'>
-                    <Link href="/">
+                    <Link to="/">
                         <img src='/logo.png' className='h-[10vh] object-contain w-full'/>
                     </Link>
                 </div>

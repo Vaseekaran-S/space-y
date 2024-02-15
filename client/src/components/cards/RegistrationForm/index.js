@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -9,14 +9,19 @@ import PrimaryBtn from '../../buttons/PrimaryBtn'
 
 import signUpFieldsData from '../../../data/inputs/SignUp'
 import loginFieldsData from '../../../data/inputs/Login'
-import axios from 'axios';
+import { createNewUser, verifyUser } from '../../../api/users';
+import Loader from '../../Loader';
 
 export default function RegistrationForm({ type }) {
+
+    const navigate = useNavigate()
+
+    const [isLoaderOn, setIsLoaderOn] = useState(false);
 
     const login = type === 'login';
 
     const title = (login) ? 'Welcome Back!' : 'Signup for Unlimeted Fun!'
-    const action = (login) ? '/login' : '/signup'
+    const submitBtnPlaceholder = (login) ? 'Login' : 'Sign up'
     const fields = (login) ? loginFieldsData : signUpFieldsData
 
     const boxTitle = (login) ? 'New to Space Y?' : 'Already have an account?'
@@ -24,32 +29,47 @@ export default function RegistrationForm({ type }) {
     const bottomAction = (login) ? '/signup' : '/login'
 
     const initialValues = {
-        name: "Vasee",
-        email: "vasi@gmail.com",
+        name: "",
+        email: "",
         password: "",
-        username: "vaseekaran"
+        username: ""
     }
 
-    const validationSchema = Yup.object({
+    const signupValidationSchema = Yup.object({
         name: Yup.string().required('Name is required *'),
         username: Yup.string().required('User Name is required *'),
         email: Yup.string().email('Invalid email address').required('Email is required *'),
         password: Yup.string().required('Password is required *'),
     });
 
-    const onSubmitForm = (values) => {
-        try{
-            axios.post("")
-        }catch(err){
+    const loginValidationSchema = Yup.object({
+        username: Yup.string().required('User Name is required *'),
+        password: Yup.string().required('Password is required *'),
+    });
+
+    const validationSchema = (login) ? loginValidationSchema : signupValidationSchema
+
+    const action = (login) ? verifyUser : createNewUser
+    const onSubmitForm = async (values) => {
+        setIsLoaderOn(true)
+        try {
+            const responce = await action(values)
+            if(responce?.status == 202){
+                navigate("/")
+            }
+            console.log(responce);
+        } catch (err) {
             console.log(err);
         }
+        setIsLoaderOn(false)
     }
 
     return (
         <>
+            {isLoaderOn && <Loader />}
             <div className='h-full flex-center flex-col gap-5'>
                 <div className="rounded shadow border p-8 bg-white max-w-sm w-[350px] hover:shadow-lg">
-                    <Link href="/">
+                    <Link to="/">
                         <img src='/logo.png' className='h-[10vh] object-contain w-full' alt='logo' />
                     </Link>
                     <h2 className='font-bold text-xl my-5 text-center'>
@@ -62,13 +82,13 @@ export default function RegistrationForm({ type }) {
                                 {fields?.map((field, index) => {
                                     return (
                                         <div key={index}>
-                                            <InputField {...field} />
-                                            <ErrorMessage {...field} component="div" className='text-red-900 font-medium text-xs mt-1 ml-1'/>
+                                            <InputField {...field}/>
+                                            <ErrorMessage {...field} component="div" className='text-red-900 font-medium text-xs mt-1 ml-1' />
                                         </div>
                                     )
                                 })}
 
-                                <PrimaryBtn placeholder="Login" type="submit" />
+                                <PrimaryBtn placeholder={submitBtnPlaceholder} type="submit" />
                             </div>
                         </Form>
                     </Formik>

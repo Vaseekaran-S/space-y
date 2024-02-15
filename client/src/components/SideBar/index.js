@@ -46,11 +46,11 @@ export default function SideBar({auth,toggle}){
             {   
                 data.map((e,i)=>{
                     return(
-                        <>
+                        <div key={i}>
                             {(e.isLogin)?
-                                <Button key={i} onClick={toggle} active={(window.location.pathname==e.to)} to={e.to} title={e.title}/>:""
+                                <Button onClick={toggle} active={(window.location.pathname==e.to)} to={e.to} title={e.title}/>:""
                             }
-                        </>
+                        </div>
                     )
                 })
             }
