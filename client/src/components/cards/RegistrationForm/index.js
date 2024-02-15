@@ -11,12 +11,11 @@ import signUpFieldsData from '../../../data/inputs/SignUp'
 import loginFieldsData from '../../../data/inputs/Login'
 import { createNewUser, verifyUser } from '../../../api/users';
 import Loader from '../../Loader';
+import Alerts from '../../Alerts';
 
 export default function RegistrationForm({ type }) {
 
     const navigate = useNavigate()
-
-    const [isLoaderOn, setIsLoaderOn] = useState(false);
 
     const login = type === 'login';
 
@@ -49,11 +48,26 @@ export default function RegistrationForm({ type }) {
 
     const validationSchema = (login) ? loginValidationSchema : signupValidationSchema
 
+    
+    const [isLoaderOn, setIsLoaderOn] = useState(false);
+    const [isAlertOn, setIsAlertOn] = useState(false);
+    const [alertData, setAlertData] = useState({});
+
+
+    const alertOnFun = (res) =>{
+        setAlertData(res)
+        setIsAlertOn(true)
+        setTimeout(() => {
+            setIsAlertOn(false)
+        }, 4000)
+    };
+
     const action = (login) ? verifyUser : createNewUser
     const onSubmitForm = async (values) => {
         setIsLoaderOn(true)
         try {
             const responce = await action(values)
+            alertOnFun(responce)
             if(responce?.status == 202){
                 navigate("/")
             }
@@ -66,6 +80,7 @@ export default function RegistrationForm({ type }) {
 
     return (
         <>
+            {isAlertOn && <Alerts {...alertData} />}
             {isLoaderOn && <Loader />}
             <div className='h-full flex-center flex-col gap-5'>
                 <div className="rounded shadow border p-8 bg-white max-w-sm w-[350px] hover:shadow-lg">
