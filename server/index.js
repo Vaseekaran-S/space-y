@@ -17,16 +17,18 @@ mongoose.connect(mongoURI).then(() =>{
     }).catch((err) => console.log(err));
 
 
-// User SignUp
+// User SignUp and Login
 
-const signupRouter = require("./routes/signup.routes")
-app.use("/signup", signupRouter)
+const { verifyUser, addUser } = require('./controller/registration.controller');
+
+app.post("/signup", addUser)
+app.post("/login", verifyUser)
 
 
 // Old Requests
 
 const Post = require('./modules/posts')
-const Users = require('./modules/users')
+const Users = require('./modules/users');
 
 //New Users 
 
