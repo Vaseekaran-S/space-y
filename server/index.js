@@ -2,6 +2,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require('body-parser')
+
 const app = express();
 
 const dotenv = require('dotenv')
@@ -10,6 +12,7 @@ dotenv.config();
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cors())
+app.use(bodyParser.json())
 
 const mongoURI = process.env.MONGO_API
 mongoose.connect(mongoURI).then(() =>{
@@ -19,10 +22,11 @@ mongoose.connect(mongoURI).then(() =>{
 
 // User SignUp and Login
 
-const { verifyUser, addUser } = require('./controller/registration.controller');
+const { verifyUser, addUser, isAuthenticated } = require('./controller/registration.controller');
 
 app.post("/signup", addUser)
 app.post("/login", verifyUser)
+app.get("/checkUser", isAuthenticated)
 
 
 // Old Requests
