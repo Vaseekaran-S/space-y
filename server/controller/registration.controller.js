@@ -100,10 +100,9 @@ const isAuthenticated = (req, res) => {
     try{
         const verification = jwt.verify(token, secretKey)
         console.log("Verification : ", verification);
-        res.json({ msg: "User Authenticated!", status: 202})
-
+        return res.json({ msg: "User Authenticated!", status: 202})
     }catch(err){
-        throw err
+        return res.json({ msg: "User Authenticated Failed!", status: 401})
     }
 }
 

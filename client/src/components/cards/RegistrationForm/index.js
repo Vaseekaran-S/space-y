@@ -69,6 +69,7 @@ export default function RegistrationForm({ type }) {
             const responce = await action(values)
             alertOnFun(responce)
             if(responce?.status == 202){
+                localStorage.setItem("spaceY-token",responce?.token)
                 navigate("/")
             }
             console.log(responce);

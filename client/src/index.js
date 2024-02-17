@@ -1,14 +1,17 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './index.css';
 import Layout from './layout';
 import Loader from './components/Loader';
+import { checkUser } from './api/users';
 
-const Home =  React.lazy(()=> import('./pages/Home'));
-const Login =  React.lazy(()=> import('./pages/Login'));
-const SignUp =  React.lazy(()=> import('./pages/SignUp'));
+const Home = React.lazy(() => import('./pages/Home'));
+const Login = React.lazy(() => import('./pages/Login'));
+const SignUp = React.lazy(() => import('./pages/SignUp'));
+const Profile = React.lazy(() => import('./pages/Profile'));
+
 
 // import SignUp from './pages/signup';
 // import Profile from './pages/profile';
@@ -17,28 +20,35 @@ const SignUp =  React.lazy(()=> import('./pages/SignUp'));
 // import UserInfo from './pages/userInfo';
 
 export default function App() {
+
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const checkAuthentication = () => {
-    try {
-      const token = localStorage.getItem("spaceY-token")
-    } catch (error) {
-      console.log(error);
-    }
+  const checkAuthentication = async () => {
+    const isAlreadyAuthenticated = await checkUser()
+    console.log("IsAuthenticated ", isAlreadyAuthenticated);
+    setIsAuthenticated(isAlreadyAuthenticated)
   }
+
+  useEffect(() => {
+    checkAuthentication()
+  }, [])
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<Loader/>}>
+      <Suspense fallback={<Loader />}>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<SignUp />} />
-
-            {/* <Route path='/profile' element={<Profile />} />
-            <Route path={`/:id`} element={<UserInfo />} />
-            <Route path='/add' element={<AddPost />} /> */}
+            <Route path='/' element={isAuthenticated?<Home />:<Login/>} />
+            {isAuthenticated ?
+              <>
+                <Route path='/profile' element={<Profile />} />
+              </>
+              :
+              <>
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<SignUp />} />
+              </>
+            }
           </Routes>
         </Layout>
       </Suspense>
