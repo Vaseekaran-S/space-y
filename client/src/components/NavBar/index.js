@@ -23,7 +23,7 @@ export default function NavBar(){
                 {(currentUser?.email)?
                     <Avatar size='40' round={true} name={currentUser?.email} onClick={()=>{(window.location.pathname=='/profile')?navigate('/'):navigate('/profile')}} className='cursor-pointer'/>
                     :
-                    <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/signup')} className='cursor-pointer' round={true}/>
+                    <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/profile')} className='cursor-pointer' round={true}/>
                 }
             </div>
         </>
