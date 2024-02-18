@@ -23,15 +23,12 @@ const getAllUser = async(req,res) => {
 const getUser = async(req,res) => {
     try{
         const username = req.params.id
-        const userData = await User.findOne({ username: username})
+        const userData = await User.findOne({ username: username}).select('-password')
         if(!userData){
-            console.log("User Not Found");
             return res.json({ msg: "User Not Found!", status: 404})
         }
-        console.log(userData);
         res.status(202).json(userData)
     }catch(err){
-        console.log("Error : ",err);
         return res.json({ msg: "Something went wrong at Server!", status: 500})
     }
 }
