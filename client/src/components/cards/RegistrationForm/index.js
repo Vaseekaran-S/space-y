@@ -6,16 +6,17 @@ import * as Yup from 'yup';
 
 import InputField from '../../InputField'
 import PrimaryBtn from '../../buttons/PrimaryBtn'
-
 import Alerts from '../../Alerts';
 import Loader from '../../Loader';
 
 import loginFieldsData from '../../../data/inputs/Login'
 import signUpFieldsData from '../../../data/inputs/SignUp'
 
-import { createNewUser, verifyUser } from '../../../api/users';
+
 import { useDispatch } from 'react-redux';
 import { setAuthentication } from '../../../redux/profile/profileSlice'; 
+
+import { logIn, signUp } from '../../../api/auth';
 
 export default function RegistrationForm({ type }) {
 
@@ -36,7 +37,6 @@ export default function RegistrationForm({ type }) {
         password: Yup.string().required('Password is required *'),
     });
 
-
     const renderingData = {
         title : (login) ? 'Welcome Back!' : 'Signup for Unlimeted Fun!',
         submitBtnPlaceholder : (login) ? 'Login' : 'Sign up',
@@ -45,7 +45,7 @@ export default function RegistrationForm({ type }) {
         bottomBtn : (login) ? 'Sign up' : 'Login',
         bottomAction : (login) ? '/signup' : '/login',
         validationSchema: (login) ? loginValidationSchema : signupValidationSchema,
-        action : (login) ? verifyUser : createNewUser
+        action : (login) ? logIn : signUp
     }
 
     const { title, submitBtnPlaceholder, fields, boxTitle, bottomBtn, bottomAction, validationSchema, action } = renderingData

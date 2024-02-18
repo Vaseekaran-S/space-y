@@ -6,9 +6,11 @@ import './index.css';
 import Layout from './layout';
 import Loader from './components/Loader';
 
-import { checkUser, getUser } from './api/users';
 import { setAuthentication, setUserData } from './redux/profile/profileSlice';
 import { useSelector } from 'react-redux';
+
+import { verifyToken } from './api/auth';
+import { getUser } from './api/users';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
@@ -21,15 +23,11 @@ export default function App() {
     const isAuthenticated = useSelector( store => store.profile.isAuthenticated )
 
     const checkAuthentication = async () => {
-
-        const isAlreadyAuthenticated = await checkUser()
-        console.log("IsAuthenticated ", isAlreadyAuthenticated);
+        const isAlreadyAuthenticated = await verifyToken()
         dispatch(setAuthentication(isAlreadyAuthenticated && true))
 
         const userData = await getUser(isAlreadyAuthenticated?.user?.username)
         dispatch(setUserData(userData))
-
-        console.log("User Data", userData);
     }
 
     useEffect(() => {
