@@ -29,7 +29,7 @@ const getUser = async(req,res) => {
             return res.json({ msg: "User Not Found!", status: 404})
         }
         console.log(userData);
-        res.json(userData)
+        res.status(202).json(userData)
     }catch(err){
         console.log("Error : ",err);
         return res.json({ msg: "Something went wrong at Server!", status: 500})
@@ -40,16 +40,17 @@ const getUser = async(req,res) => {
 // PUT : Update user data
 const updateUser = async(req,res) => {
     try{
-        const username = req.params?.id
-        const data = req.body
+        const userName = req.params?.id
+        const { username, password, isDeleted, ...data} = req.body
 
-        const updateUser = await User.updateOne({ username: username}, { $set: { name: 'VASI' } })
-        console.log(username);
-
-        res.send(updateUser)
+        const updateUser = await User.updateOne({ username: userName }, { $set: data })
+        if(updateUser.matchedCount === 0){
+            return res.json({ msg: "User Not Found!", status: 404 })
+        }
+        res.json({ msg: "Profile Updated!", status: 202 })
     }catch(err){
         console.log(err);
-        res.send(err.message)
+        res.json({ msg: "Something went wrong at Server!", status: 500 })
     }
 }
 
@@ -57,18 +58,17 @@ const updateUser = async(req,res) => {
 const deleteUser = async(req,res) => {
     try{
         const username = req.params?.id
-        const data = req.body
 
-        const updateUser = await User.updateOne({ username: username}, { $set: { isDeletd: true } })
-        console.log(username);
-
-        res.send(updateUser)
+        const deleteUser = await User.updateOne({ username: username}, { $set: { isDeleted: true } })
+        if(deleteUser.matchedCount === 0){
+            return res.json({ msg: "User Not Found!", status: 404 })
+        }
+        res.json({ msg: "Used Deleted!", status: 202 })
     }catch(err){
         console.log(err);
-        res.send(err.message)
+        res.json({ msg: "Something went wrong at Server!", status: 500 })
     }
 }
-
 
 module.exports = {
     getAllUser,
