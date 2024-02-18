@@ -22,78 +22,11 @@ mongoose.connect(mongoURI).then(() =>{
 
 // User SignUp and Login
 
-const { verifyUser, addUser, isAuthenticated } = require('./controller/registration.controller');
+const userRouter = require("./routes/users.routes")
+const authRouter = require("./routes/auth.routes")
 
-app.post("/signup", addUser)
-app.post("/login", verifyUser)
-app.get("/checkUser", isAuthenticated)
-
-
-// Old Requests
-
-const Post = require('./modules/posts')
-const Users = require('./modules/users');
-
-//New Users 
-
-app.post('/newUser',async (req,res)=>{
-    const data = req.body
-    const user = new Users({mail: data?.mail, name: data?.name, number: data?.number})
-    try{
-        await user.save().then((e=>{
-            console.log(e.mail);
-        })).catch((err)=>{
-            console.log(err);
-        })
-    }catch(err){
-        console.log(err);
-    }
-})
-
-app.get('/getUser',async(req,res)=>{
-    const user = await Users.find({"mail":req.query.mail})
-    try{
-        res.send(user)
-    }catch(err){
-        res.status(500).send(err)
-    }
-})
-
-
-// New Posts
-
-app.post('/addPost',async (req,res)=>{
-    const post = new Post({mail: req.body?.userId, desc: req.body?.desc, image: req.body?.image, date: req.body?.date})
-    try{
-        await post.save().then(function (doc) {
-            console.log(doc._id.toString());
-        }).catch(function (err) {
-            console.log(err);
-        });
-    }catch(err){
-        console.log(err);
-    }
-})
-
-app.get('/getPost',async (req,res)=>{
-    await Post.find({}).then(e=>{
-        res.send(e)
-    }).catch(err=>{
-        res.status(500).send(err)        
-    })
-})
-
-//Specific User
-
-app.get('/:id',async (req,res)=>{
-    const profile = await Users.find({"mail":req.params.id})
-    const post = await Post.find({"mail":req.params.id})
-    const data = {
-        profile: profile,
-        posts: post
-    }
-    res.send(data)
-})
+app.use("/api/users", userRouter)
+app.use("/api/auth", authRouter)
 
 
 app.listen(3001,()=>{

@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken")
 
 const User = require("../models/users")
 
-
-
-// Create a JWT token
+// Create JWT token
 const secretKey = "space-y-token-provider"
 const getJwtToken = (username) => {
     const token = jwt.sign({username}, secretKey, {expiresIn: "2h"})
@@ -36,15 +34,21 @@ const verifyHashPassword = async (password, hashedPassword) => {
 }
 
 
-// POST : Add New User at DB with enscrypted password
-const addUser = async (req, res) => {
+// POST : Create New User at DB with enscrypted password
+
+const createNewUser = async (req, res) => {
     const { password, username, name, email} = req.body
-    const encryptedPassword = await hashPassword(password)
-    console.log(encryptedPassword);
 
-    const user = new User({ username: username, password: encryptedPassword, name: name, email: email })
-
+    if( !password || !username || !name || !email){
+        console.log("Please! Enter all Details");
+        res.status(400).json({ msg: "Please! Enter all Details", status: 400 })
+        return
+    }
+    
     try {
+        const encryptedPassword = await hashPassword(password)
+    
+        const user = new User({ username: username, password: encryptedPassword, name: name, email: email })
         const isUserExist = await User.findOne({ username: username })
         if (isUserExist) {
             res.send({ msg: "User name already taken!", status: 302 })
@@ -67,7 +71,7 @@ const addUser = async (req, res) => {
 
 
 // POST : Verify the username and passowrd
-const verifyUser = async (req, res) => {
+const veriryUser = async (req, res) => {
     const { username, password } = req.body
     try {
         const user = await User.findOne({ username: username })
@@ -92,7 +96,7 @@ const verifyUser = async (req, res) => {
 
 
 // POST : Verifying the user header for auto authentication
-const isAuthenticated = (req, res) => {
+const tokenValidation = (req, res) => {
     const token = req.headers.authorization;
     if(!token){
         return res.json({ msg: "User Authentication Failed!", status: 401})
@@ -100,7 +104,7 @@ const isAuthenticated = (req, res) => {
     try{
         const verification = jwt.verify(token, secretKey)
         console.log("Verification : ", verification);
-        return res.json({ msg: "User Authenticated!", status: 202})
+        return res.json({ msg: "User Authenticated!", status: 202, user: verification})
     }catch(err){
         return res.json({ msg: "User Authenticated Failed!", status: 401})
     }
@@ -108,7 +112,7 @@ const isAuthenticated = (req, res) => {
 
 
 module.exports = {
-    addUser,
-    verifyUser,
-    isAuthenticated
+    createNewUser,
+    veriryUser,
+    tokenValidation
 }
