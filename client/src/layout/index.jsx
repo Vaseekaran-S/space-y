@@ -5,7 +5,6 @@ import SideBar from "../components/SideBar";
 export default function Layout({ children }) {
 
     const [position, setPosition] = useState('');
-
     if(typeof window !== "undefined"){
         window.addEventListener("scroll",()=>{
             if(window.scrollY > 0){

@@ -40,13 +40,25 @@ export const checkUser = async() => {
                 Authorization: token
             }
         })
+        console.log("User Auth : ", response);
         if(response?.data?.status == 202){
-            return true
+            return response?.data
         }else{
             return false
         }
     }catch(error){
         console.log(error);
         return false
+    }
+}
+
+
+export const getUser = async(username) => {
+    try{
+        const response = await axios.get(`/users/${username}`)
+        console.log(response);
+        return response.data
+    }catch(err){
+        console.log(err);
     }
 }

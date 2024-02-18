@@ -7,32 +7,22 @@ import * as Yup from 'yup';
 import InputField from '../../InputField'
 import PrimaryBtn from '../../buttons/PrimaryBtn'
 
-import signUpFieldsData from '../../../data/inputs/SignUp'
-import loginFieldsData from '../../../data/inputs/Login'
-import { createNewUser, verifyUser } from '../../../api/users';
-import Loader from '../../Loader';
 import Alerts from '../../Alerts';
+import Loader from '../../Loader';
+
+import loginFieldsData from '../../../data/inputs/Login'
+import signUpFieldsData from '../../../data/inputs/SignUp'
+
+import { createNewUser, verifyUser } from '../../../api/users';
+import { useDispatch } from 'react-redux';
+import { setAuthentication } from '../../../redux/profile/profileSlice'; 
 
 export default function RegistrationForm({ type }) {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const login = type === 'login';
-
-    const title = (login) ? 'Welcome Back!' : 'Signup for Unlimeted Fun!'
-    const submitBtnPlaceholder = (login) ? 'Login' : 'Sign up'
-    const fields = (login) ? loginFieldsData : signUpFieldsData
-
-    const boxTitle = (login) ? 'New to Space Y?' : 'Already have an account?'
-    const bottomBtn = (login) ? 'Sign up' : 'Login'
-    const bottomAction = (login) ? '/signup' : '/login'
-
-    const initialValues = {
-        name: "",
-        email: "",
-        password: "",
-        username: ""
-    }
 
     const signupValidationSchema = Yup.object({
         name: Yup.string().required('Name is required *'),
@@ -46,13 +36,30 @@ export default function RegistrationForm({ type }) {
         password: Yup.string().required('Password is required *'),
     });
 
-    const validationSchema = (login) ? loginValidationSchema : signupValidationSchema
 
+    const renderingData = {
+        title : (login) ? 'Welcome Back!' : 'Signup for Unlimeted Fun!',
+        submitBtnPlaceholder : (login) ? 'Login' : 'Sign up',
+        fields : (login) ? loginFieldsData : signUpFieldsData,
+        boxTitle : (login) ? 'New to Space Y?' : 'Already have an account?',
+        bottomBtn : (login) ? 'Sign up' : 'Login',
+        bottomAction : (login) ? '/signup' : '/login',
+        validationSchema: (login) ? loginValidationSchema : signupValidationSchema,
+        action : (login) ? verifyUser : createNewUser
+    }
+
+    const { title, submitBtnPlaceholder, fields, boxTitle, bottomBtn, bottomAction, validationSchema, action } = renderingData
+
+    const initialValues = {
+        name: "",
+        email: "",
+        password: "",
+        username: ""
+    }
     
     const [isLoaderOn, setIsLoaderOn] = useState(false);
     const [isAlertOn, setIsAlertOn] = useState(false);
     const [alertData, setAlertData] = useState({});
-
 
     const alertOnFun = (res) =>{
         setAlertData(res)
@@ -62,7 +69,6 @@ export default function RegistrationForm({ type }) {
         }, 4000)
     };
 
-    const action = (login) ? verifyUser : createNewUser
     const onSubmitForm = async (values) => {
         setIsLoaderOn(true)
         try {
@@ -70,6 +76,8 @@ export default function RegistrationForm({ type }) {
             alertOnFun(responce)
             if(responce?.status == 202){
                 localStorage.setItem("spaceY-token",responce?.token)
+                dispatch(setAuthentication(true))
+                dispatch(setAuthentication(true))
                 navigate("/")
             }
             console.log(responce);
@@ -103,16 +111,15 @@ export default function RegistrationForm({ type }) {
                                         </div>
                                     )
                                 })}
-
                                 <PrimaryBtn placeholder={submitBtnPlaceholder} type="submit" />
                             </div>
                         </Form>
                     </Formik>
-                    {login ? (
+                    {login && 
                         <h2 className='font-medium text-md mt-5 text-center underline'>
                             <Link to='/'>Forget Password</Link>
                         </h2>
-                    ) : ''}
+                    }
                 </div>
                 <div className="rounded shadow border p-5 w-[350px] hover:shadow-lg">
                     <h2 className='font-medium text-lg text-center'>

@@ -1,12 +1,12 @@
 
-import { TbLayoutNavbarExpand, TbLayoutNavbarCollapse } from 'react-icons/tb'
 import Avatar from 'react-avatar'
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function NavBar(){
     const navigate = useNavigate()
-    const [currentUser, setCurrentUser] = useState('')
+
+    const currentUser = useSelector( store => store.profile.userData )
 
     return(
         <>
@@ -21,9 +21,9 @@ export default function NavBar(){
                     <input type='text' placeholder='Search...' className='block w-full pr-6 p-1 px-2 bg-transparent focus:border-gray-100'/>
                 </div>
                 {(currentUser?.email)?
-                    <Avatar size='40' round={true} name={currentUser?.email} onClick={()=>{(window.location.pathname=='/profile')?navigate('/'):navigate('/profile')}} className='cursor-pointer'/>
+                    <Avatar size='40' round={true} name={currentUser?.name} onClick={()=>{(window.location.pathname=='/profile')?navigate('/'):navigate('/profile')}} className='cursor-pointer'/>
                     :
-                    <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/profile')} className='cursor-pointer' round={true}/>
+                    <Avatar facebookId="100008343750912" size="40" onClick={()=>navigate('/')} className='cursor-pointer' round={true}/>
                 }
             </div>
         </>
