@@ -31,6 +31,10 @@ const users = new mongoose.Schema({
         type: String,
         require: true
     },
+    location: {
+        type: String,
+        require: true
+    },
     bioDescription: {
         type: String,
         require: true

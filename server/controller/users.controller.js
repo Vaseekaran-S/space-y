@@ -2,7 +2,7 @@
 const User = require("../models/users")
 
 
-// GET : Getting user data
+// GET : Getting all user data
 const getAllUser = async(req,res) => {
     try{
         const usersData = await User.find({}).limit(2)
@@ -38,13 +38,13 @@ const getUser = async(req,res) => {
 const updateUser = async(req,res) => {
     try{
         const userName = req.params?.id
-        const { username, password, isDeleted, ...data} = req.body
+        const { username, password, email, isDeleted, ...data} = req.body
 
         const updateUser = await User.updateOne({ username: userName }, { $set: data })
         if(updateUser.matchedCount === 0){
             return res.json({ msg: "User Not Found!", status: 404 })
         }
-        res.json({ msg: "Profile Updated!", status: 202 })
+        res.json({ msg: "Profile Updated!", status: 202, data: req.body })
     }catch(err){
         console.log(err);
         res.json({ msg: "Something went wrong at Server!", status: 500 })
