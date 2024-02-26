@@ -94,7 +94,7 @@ export default function RegistrationForm({ type }) {
             <div className='h-full flex-center flex-col gap-5'>
                 <div className="rounded shadow border p-8 bg-white max-w-sm w-[350px] hover:shadow-lg">
                     <Link to="/">
-                        <img src='/logo.png' className='h-[10vh] object-contain w-full' alt='logo' />
+                        <img src='/logo/logo.png' className='h-[10vh] object-contain w-full' alt='logo' />
                     </Link>
                     <h2 className='font-bold text-xl my-5 text-center'>
                         {title}
