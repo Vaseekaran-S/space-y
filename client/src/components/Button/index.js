@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-export default function Button({title,active,...props}){
+export default function Button({title,active,to}){
     return(
         <div>
-            <Link {...props} className={(active?"bg-black text-white":"bg-white text-black")+" w-[180px] h-[35px] rounded mb-5 flex items-center justify-center text-lg font-medium"}>{title}</Link>
+            <Link to={to} className={`w-[180px] h-[35px] mb-4 bg-white text-black rounded shadow hover:shadow-lg flex-center text-lg font-medium ${active && 'bg-black text-white'}`}>{title}</Link>
         </div>
     )
 }

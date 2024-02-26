@@ -22,13 +22,11 @@ function PostCard() {
               <h1 className='text-xl font-bold ml-3'>Vasekaran</h1>
             </Link>
             <Link to="/location">
-              <h1 className='text-xs font-medium ml-4'>Chennai</h1>
+              <span>Chennai</span>
             </Link>
           </div>
         </div>
-        <div>
-        <HiOutlineDotsHorizontal cursor="pointer" onClick={()=>{}}/>
-        </div>
+        <HiOutlineDotsHorizontal cursor="pointer" />
       </div>
       <div className='h-[350px] overflow-hidden center'>
         <img src="https://i.pinimg.com/736x/60/72/cb/6072cb81fbaac9f7750561675ef9ad71.jpg" alt="" loading='lazy' />
@@ -41,8 +39,6 @@ function PostCard() {
         </div>
         <div className='cursor-pointer'>
           {isSaved ? <BsBookmarkFill onClick={() => setIsSaved(false)} /> : <BsBookmark onClick={() => setIsSaved(true)} />}
-
-
         </div>
       </div>
     </div>

@@ -1,11 +1,8 @@
 
-import { signOut } from "firebase/auth"
 import Button from "../Button"
-import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 export default function SideBar(){
-    const navigate = useNavigate()
     const auth = useSelector( store => store.profile.isAuthenticated )
 
     const data = [
@@ -43,12 +40,6 @@ export default function SideBar(){
             }
         }
     ]
-
-    function logout(){
-        signOut(auth).then(()=>{
-            navigate('/signup')
-        })
-    }
 
     return(
         <div className="w-[200px] flex flex-col items-center m-5">

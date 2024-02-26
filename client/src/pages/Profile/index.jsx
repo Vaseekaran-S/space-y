@@ -2,6 +2,7 @@ import React from 'react'
 import { FaMapMarkerAlt } from "react-icons/fa";
 import TabPills from '../../components/TabPills';
 import { useSelector } from 'react-redux';
+import ProfileModal from '../../components/modals/ProfileForm';
 
 const tabs = [
   {
@@ -22,11 +23,11 @@ function Profile() {
         </div>
         <div className="col-span-3 p-2">
           <h1 className='font-bold text-xl'>{currentUser?.name}</h1>
-          <h2 className='font-medium text-gray-400'>Astroner</h2>
+          <h2 className='font-medium text-gray-400'>{currentUser?.role}</h2>
           <h2 className='flex items-center'><FaMapMarkerAlt /> Chennai</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod dolor dolore ad reprehenderit adipisci aliquam accusamus repellendus sunt perspiciatis voluptatibus sit quaerat omnis, qui dolorum assumenda consequuntur aliquid veritatis nulla.</p>
+          <ProfileModal />
         </div>
-
       </div>
 
       <div className='mt-5'>
