@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDispatch } from "react-redux"
 
@@ -18,9 +18,9 @@ const SignUp = React.lazy(() => import('./pages/SignUp'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 
 export default function App() {
-    
+
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector( store => store.profile.isAuthenticated )
+    const isAuthenticated = useSelector(store => store.profile.isAuthenticated)
 
     const checkAuthentication = async () => {
         const isAlreadyAuthenticated = await verifyToken()
@@ -43,8 +43,6 @@ export default function App() {
                         {isAuthenticated ?
                             <>
                                 <Route path='/profile' element={<Profile />} />
-                                <Route path='/login' element={<Profile />} />
-                                <Route path='/signup' element={<Profile />} />
                             </>
                             :
                             <>
@@ -52,7 +50,8 @@ export default function App() {
                                 <Route path='/signup' element={<SignUp />} />
                             </>
                         }
-                        <Route path="*" element={"Not Found"}/>
+
+                        <Route path="*" element={"Not Found"} />
                     </Routes>
                 </Layout>
             </Suspense>
