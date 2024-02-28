@@ -1,8 +1,11 @@
 
+import { useLocation } from "react-router-dom"
 import Button from "../Button"
 import { useSelector } from "react-redux"
 
 export default function SideBar(){
+    const location = useLocation().pathname;
+
     const auth = useSelector( store => store.profile.isAuthenticated )
 
     const data = [
@@ -48,7 +51,7 @@ export default function SideBar(){
                     return(
                         <div key={i}>
                             {
-                                (e.isLogin) && <Button active={(window.location.pathname === e.to)} {...e}/>
+                                (e.isLogin) && <Button active={(location === e.to)} {...e}/> 
                             }
                         </div>
                     )
