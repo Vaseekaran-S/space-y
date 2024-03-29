@@ -19,7 +19,7 @@ export default function Layout({ children }) {
                 <NavBar />
             </div>
             <div className="flex z-50">
-                <div className={`h-[90vh] bg-gray-500 sticky top-0 left-0 rounded ${position}`}>
+                <div className={`h-[90vh] bg-gray-500 sticky top-0 left-0 rounded ${position} hidden lg:block`}>
                     <SideBar />
                 </div>
                 <div className="w-full">

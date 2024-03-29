@@ -16,7 +16,7 @@ export default function NavBar(){
                         <img src='/logo/logo.png' className='h-[10vh] object-contain w-full'/>
                     </Link>
                 </div>
-                <div className='relative border-2 bg-gray-200 rounded flex items-center justify-center'>
+                <div className='relative border-2 bg-gray-200 rounded flex items-center justify-center hidden lg:block'>
                     <p className='absolute right-0'>🔍</p>
                     <input type='text' placeholder='Search...' className='block w-full pr-6 p-1 px-2 bg-transparent focus:border-gray-100'/>
                 </div>
