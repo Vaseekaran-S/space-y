@@ -4,11 +4,12 @@ import Button from "../Button"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 
-export default function SideBar(){
+export default function SideBar({setSideBarState}){
     const location = useLocation().pathname;
     const [currentBtn, setCurrentBtn] = useState(location);
 
     useEffect(()=>{
+        setSideBarState(false)
         setCurrentBtn(location)
     },[location])
 
@@ -51,7 +52,7 @@ export default function SideBar(){
     ]
 
     return(
-        <div className="w-[200px] flex flex-col items-center m-5">
+        <div className="w-[200px] relative flex flex-col items-center m-5 z-20">
             {   
                 data.map((e,i)=>{
                     return(
