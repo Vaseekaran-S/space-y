@@ -17,9 +17,9 @@ function Profile() {
 
   return (
     <div className='p-10'>
-      <div className="user-details grid grid-cols-4 gap-10">
+      <div className="user-details grid grid-cols-4 gap-5">
         <div className="col-span-1 flex-center">
-            <img src="https://i.pinimg.com/736x/60/72/cb/6072cb81fbaac9f7750561675ef9ad71.jpg" alt="" className='rounded-full'/>
+            <img src="https://i.pinimg.com/736x/60/72/cb/6072cb81fbaac9f7750561675ef9ad71.jpg" alt="profile" className='rounded p-1 border'/>
         </div>
         <div className="col-span-3 p-2">
           <h1 className='font-bold text-xl'>{currentUser?.name}</h1>

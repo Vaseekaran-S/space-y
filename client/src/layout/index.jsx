@@ -33,7 +33,7 @@ export default function Layout({ children }) {
                 <div className="w-full min-h-[90vh]">
                     {children}
                 </div>
-                <div className={`h-[90vh] ${sideBarState ?'block fixed':'hidden sticky'} left-0 top-0 ${position} lg:block`}>
+                <div className={`h-[90vh] hidden sticky left-0 top-0 ${position} lg:block`}>
                     <SideProfileBar />
                 </div>  
             </div>
