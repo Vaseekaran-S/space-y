@@ -17,9 +17,9 @@ function PostCard() {
       <div className="flex items-center justify-between p-3">
         <div className='flex'>
           <img src="https://i.pinimg.com/736x/60/72/cb/6072cb81fbaac9f7750561675ef9ad71.jpg" alt="" loading='lazy' className='h-[55px] w-[55px] rounded-full' />
-          <div>
+          <div className='ml-3'>
             <Link to="/">
-              <h1 className='text-xl font-bold ml-3'>Vasekaran</h1>
+              <h1 className='text-xl font-bold'>Vaseekaran</h1>
             </Link>
             <Link to="/location">
               <span>Chennai</span>
