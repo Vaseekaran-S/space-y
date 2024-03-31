@@ -16,6 +16,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
 const SignUp = React.lazy(() => import('./pages/SignUp'));
 const Profile = React.lazy(() => import('./pages/Profile'));
+const AddPost = React.lazy(() => import('./pages/AddPost'));
 
 export default function App() {
 
@@ -26,7 +27,9 @@ export default function App() {
         const isAlreadyAuthenticated = await verifyToken()
         dispatch(setAuthentication(isAlreadyAuthenticated && true))
 
-        const userData = await getUser(isAlreadyAuthenticated?.user?.username)
+        const username = isAlreadyAuthenticated?.user?.username
+        const userData = await getUser(username)
+
         dispatch(setUserData(userData))
     }
 
@@ -43,6 +46,7 @@ export default function App() {
                         {isAuthenticated ?
                             <>
                                 <Route path='/profile' element={<Profile />} />
+                                <Route path='/addPost' element={<AddPost />} />
                             </>
                             :
                             <>

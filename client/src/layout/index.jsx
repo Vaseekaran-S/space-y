@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useSelector } from "react-redux"
+
 import NavBar from "../components/NavBar";
 import SideBar from "../components/SideBar";
 import Overlay from "../components/Overlay";
 import SideProfileBar from "../components/SideProfile";
 
 export default function Layout({ children }) {
+
+    const auth = useSelector( store => store.profile.isAuthenticated )
 
     const [position, setPosition] = useState('');
     if(typeof window !== "undefined"){
@@ -33,7 +37,7 @@ export default function Layout({ children }) {
                 <div className="w-full min-h-[90vh]">
                     {children}
                 </div>
-                <div className={`h-[90vh] hidden sticky left-0 top-0 ${position} lg:block`}>
+                <div className={`h-[90vh] hidden sticky left-0 top-0 ${position} ${auth && 'lg:block'}`}>
                     <SideProfileBar />
                 </div>  
             </div>

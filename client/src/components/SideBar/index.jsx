@@ -27,7 +27,7 @@ export default function SideBar({setSideBarState}){
             isLogin: auth
         },
         {
-            to : "/add",
+            to : "/addPost",
             title : "Add Post",
             isLogin: auth
         },
