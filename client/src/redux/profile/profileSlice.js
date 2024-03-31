@@ -14,6 +14,9 @@ const profileSlice = createSlice({
             state.isAuthenticated = action.payload
         },
         setUserData: (state, action) => {
+            const {username, email, name} = action.payload
+            state.username = username
+            state.userProfile = {username, email, name}
             state.userData = action.payload
         }
     }
