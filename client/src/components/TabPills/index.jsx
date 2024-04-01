@@ -42,7 +42,7 @@ function TabPills() {
             <div className="w-full">
                 {tabs?.map((tab, index) => [
                     <p key={index} className='text-black'>
-                        {activeTab === index ? tab?.component : ''}
+                        {activeTab === index && tab?.component}
                     </p>
                 ])}
             </div>
