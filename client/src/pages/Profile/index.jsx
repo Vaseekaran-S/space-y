@@ -1,18 +1,34 @@
 import React from 'react'
-import { FaMapMarkerAlt } from "react-icons/fa";
-import TabPills from '../../components/TabPills';
+import { FaMapMarkerAlt, FaVideo } from "react-icons/fa";
+import { MdInsertPhoto } from 'react-icons/md';
 import { useSelector } from 'react-redux';
+
+import TabPills from '../../components/TabPills';
 import ProfileModal from '../../components/modals/ProfileForm';
+import PostCard from '../../components/cards/PostCard';
 
 const tabs = [
   {
-    title: "Posts",
-    component: "Test"
-  }
+      button: "Posts",
+      tabIcon: <MdInsertPhoto />,
+      component: <PostCard />,
+      alt: "No Post Found"
+  },
+  {
+      button: "Videos",
+      tabIcon: <FaVideo />,
+      component: "Videos",
+      alt: "No Video Found"
+  },
+  {
+      button: "Message",
+      tabIcon: <FaVideo />,
+      component: "Message",
+      alt: "No Message Found"
+  },
 ]
 
 function Profile() {
-
   const currentUser = useSelector( store => store.profile.userData )
 
   return (
@@ -31,7 +47,7 @@ function Profile() {
       </div>
 
       <div className='mt-5'>
-        <TabPills />
+        <TabPills tabs={tabs}/>
       </div>
       
     </div>

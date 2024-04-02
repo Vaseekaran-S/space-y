@@ -1,28 +1,6 @@
 import React, { useState } from 'react'
-import { FaVideo } from "react-icons/fa";
-import { MdInsertPhoto } from "react-icons/md";
-import PostCard from '../cards/PostCard';
 
-function TabPills() {
-
-    const tabs = [
-        {
-            button: "Posts",
-            tabIcon: <MdInsertPhoto />,
-            component: <PostCard />
-        },
-        {
-            button: "Videos",
-            tabIcon: <FaVideo />,
-            component: "Videos"
-        },
-        {
-            button: "Message",
-            tabIcon: <FaVideo />,
-            component: "Message"
-        },
-    ]
-
+function TabPills({tabs}) {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
