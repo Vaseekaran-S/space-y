@@ -35,7 +35,7 @@ const users = new mongoose.Schema({
         type: String,
         require: true
     },
-    bioDescription: {
+    bio: {
         type: String,
         require: true
     },
@@ -46,7 +46,6 @@ const users = new mongoose.Schema({
     timestamps: true
 })
 
-console.log(mongoose.models);
 const Users = mongoose.model("users", users);
 
 module.exports = Users

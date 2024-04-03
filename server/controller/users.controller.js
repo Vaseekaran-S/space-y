@@ -44,7 +44,7 @@ const updateUser = async(req,res) => {
         if(updateUser.matchedCount === 0){
             return res.json({ msg: "User Not Found!", status: 404 })
         }
-        res.json({ msg: "Profile Updated!", status: 202, data: req.body })
+        res.json({ msg: "Profile Updated!", status: 202, data: data })
     }catch(err){
         console.log(err);
         res.json({ msg: "Something went wrong at Server!", status: 500 })
