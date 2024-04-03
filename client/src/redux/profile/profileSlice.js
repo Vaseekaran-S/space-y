@@ -18,10 +18,14 @@ const profileSlice = createSlice({
             state.username = username
             state.userProfile = {username, email, name}
             state.userData = action.payload
+        },
+        updateUserData: (state, action) => {
+            state.userData = { ...state.userData, ...action.payload }
+            state.userProfile = { ...state.userProfile, ...action.payload }
         }
     }
 })
 
 
 export default profileSlice.reducer
-export const { setAuthentication, setUserData } = profileSlice.actions
+export const { setAuthentication, setUserData, updateUserData } = profileSlice.actions
