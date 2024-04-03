@@ -1,13 +1,12 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useDispatch } from "react-redux"
 
 import './index.css';
 import Layout from './layout';
 import Loader from './components/Loader';
 
 import { setAuthentication, setUserData } from './redux/profile/profileSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { verifyToken } from './api/auth';
 import { getUser } from './api/users';
