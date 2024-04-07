@@ -15,7 +15,7 @@ export default function SideProfileBar() {
                 <p>{ currentUser.username }</p>
             </div>
             <div className="relative flex flex-col items-center p-2 py-5 mt-4 shadow-lg border rounded">
-                <h2 className="text-lg font-bold mt-1">Vaseekaran S</h2>
+                <p>No activity found</p>
             </div>
         </div>
     )

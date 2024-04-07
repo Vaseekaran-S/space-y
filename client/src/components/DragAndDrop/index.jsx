@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { MdChangeCircle } from 'react-icons/md';
+import { FaFileImage } from "react-icons/fa";
 
 import Button from '../buttons/EditBtn'
 
@@ -41,10 +42,10 @@ export default function DragAndDrop() {
                 }
                 {imageUrl && <img src={imageUrl} className='h-full rounded' />}
             </div>
+            <Button title={<>{imageUrl?<MdChangeCircle className='mr-2'/>:<FaFileImage className='mr-2'/>}{imageUrl?'Change Image':'Upload Image'}</>} onClick={uploadImage} />
             {imageUrl &&
-                <Button title={<><MdChangeCircle className='mr-2' />Change Image</>} onClick={uploadImage} />
+                    <Button title="Save & Upload" active={true} className="mt-3" />
             }
-            <Button title="Save & Upload" active={true} className="mt-3"/>
         </div>
     )
 }
