@@ -8,12 +8,19 @@ import TabPills from '../../components/TabPills';
 import ProfileModal from '../../components/modals/ProfileForm';
 import PostCard from '../../components/cards/PostCard';
 import ProfileImageModal from '../../components/modals/ProfileImage';
+import PostsSection from '../../components/sections/Posts';
 
 const tabs = [
   {
+    button: "All",
+    tabIcon: '',
+    component: "No Media Found",
+    alt: "No Media Found"
+  },
+  {
     button: "Posts",
     tabIcon: <MdInsertPhoto />,
-    component: <PostCard />,
+    component: <PostsSection />,
     alt: "No Post Found"
   },
   {
@@ -21,12 +28,6 @@ const tabs = [
     tabIcon: <FaVideo />,
     component: "Videos",
     alt: "No Video Found"
-  },
-  {
-    button: "Message",
-    tabIcon: <FaVideo />,
-    component: "Message",
-    alt: "No Message Found"
   },
 ]
 

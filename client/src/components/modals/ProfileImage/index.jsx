@@ -28,7 +28,7 @@ function ProfileImageModal() {
     return (
         <div>
             <div className='relative flex flex-col items-center gap-2'>
-                <img src={image || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border min-h-[100px]' />
+                <img src={image || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border min-h-[100px] max-h-[150px]' />
                 <MdChangeCircle size={30} className='absolute bottom-0 cursor-pointer' onClick={openModal} />
             </div>
             {
