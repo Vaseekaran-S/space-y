@@ -7,6 +7,7 @@ import Loader from './components/Loader';
 
 import { setAuthentication, setUserData } from './redux/profile/profileSlice';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { verifyToken } from './api/auth';
 import { getUser } from './api/users';
 
@@ -15,50 +16,46 @@ const Login = React.lazy(() => import('./pages/Login'));
 const SignUp = React.lazy(() => import('./pages/SignUp'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 
-function App() {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+export default function App() {
 
-  useEffect(() => {
+    const dispatch = useDispatch()
+    const isAuthenticated = useSelector(store => store.profile.isAuthenticated)
+
     const checkAuthentication = async () => {
-      try {
-        const isAlreadyAuthenticated = await verifyToken();
-        dispatch(setAuthentication(!!isAlreadyAuthenticated));
+        const isAlreadyAuthenticated = await verifyToken()
+        dispatch(setAuthentication(!!isAlreadyAuthenticated))
 
-        if (isAlreadyAuthenticated) {
-          const username = isAlreadyAuthenticated.user.username;
-          const userData = await getUser(username);
-          dispatch(setUserData(userData));
-        }
-      } catch (error) {
-        // Handle authentication verification or user data fetching errors
-        console.error('Authentication error:', error);
-      }
-    };
+        const username = isAlreadyAuthenticated?.user?.username
+        const userData = await getUser(username)
 
-    checkAuthentication();
-  }, [dispatch]);
+        dispatch(setUserData(userData))
+    }
 
-  return (
-    <BrowserRouter>
-      <Layout>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route
-              path="/"
-              element={isAuthenticated ? <Home /> : <Login />}
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            {isAuthenticated && (
-              <Route path="/profile" element={<Profile />} />
-            )}
-            <Route path="*" element={"Not Found"} />
-          </Routes>
-        </Suspense>
-      </Layout>
-    </BrowserRouter>
-  );
+    useEffect(() => {
+        checkAuthentication()
+    }, [isAuthenticated])
+
+    return (
+        <BrowserRouter>
+            <Suspense fallback={<Loader />}>
+                <Layout>
+                    <Routes>
+                        <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
+                        {isAuthenticated ?
+                            <>
+                                <Route path='/profile' element={<Profile />} />
+                            </>
+                            :
+                            <>
+                                <Route path='/login' element={<Login />} />
+                                <Route path='/signup' element={<SignUp />} />
+                            </>
+                        }
+
+                        <Route path="*" element={"Not Found"} />
+                    </Routes>
+                </Layout>
+            </Suspense>
+        </BrowserRouter>
+    )
 }
-
-export default App;
