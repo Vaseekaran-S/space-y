@@ -51,6 +51,7 @@ const updateUser = async(req,res) => {
     }
 }
 
+
 // DELETE : Delet user data
 const deleteUser = async(req,res) => {
     try{
@@ -66,6 +67,7 @@ const deleteUser = async(req,res) => {
         res.json({ msg: "Something went wrong at Server!", status: 500 })
     }
 }
+
 
 module.exports = {
     getAllUser,

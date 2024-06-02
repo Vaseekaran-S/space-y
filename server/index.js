@@ -16,8 +16,8 @@ app.use(bodyParser.json())
 
 const mongoURI = process.env.MONGO_API
 mongoose.connect(mongoURI).then(() =>{
-     console.log("MongoDB connected")
-    }).catch((err) => console.log(err));
+    console.log("MongoDB connected")
+}).catch((err) => console.log(err));
 
 
 // User SignUp and Login
@@ -28,6 +28,9 @@ const authRouter = require("./routes/auth.routes")
 app.use("/api/users", userRouter)
 app.use("/api/auth", authRouter)
 
+// Files Upload Router
+const uploadRouter = require("./routes/upload.routes")
+app.use("/api/upload", uploadRouter)
 
 app.listen(3001,()=>{
     console.log("Server Running http://localhost:3001");
