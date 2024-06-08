@@ -3,11 +3,11 @@ import axios from "../axios"
 
 // POST : Upload Image at Db
 
-export const uploadFileAtDb = async (file) =>{
+export const uploadFileAtDb = async (file, imagePath) =>{
     try{    
         const fileData = new FormData();
         fileData.append("image", file);
-        fileData.append("path", "images/image.jpg");
+        fileData.append("path", imagePath);
     
         const request = await axios.post('/api/upload/image', fileData);
         const response = await request.data;

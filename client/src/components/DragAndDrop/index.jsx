@@ -6,7 +6,7 @@ import Button from '../buttons/EditBtn'
 
 import { uploadFileAtDb } from '../../api/uploads/index'
 
-export default function DragAndDrop() {
+export default function DragAndDrop({ updateImage, imagePath }) {
 
     const [imageUrl, setImageUrl] = useState('')
     const [imageFile, setImageFile] = useState('')
@@ -36,7 +36,8 @@ export default function DragAndDrop() {
     const handleDragOver = e => e.preventDefault()
 
     const uploadFile = async () => {
-        uploadFileAtDb(imageFile)
+        const {image} = await uploadFileAtDb(imageFile, imagePath)
+        updateImage(image)
     }
 
     return (

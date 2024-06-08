@@ -8,18 +8,18 @@ import { updateUserData } from '../../../redux/profile/profileSlice';
 
 import PopupModal from '..';
 import DragAndDrop from '../../DragAndDrop';
-import PrimaryBtn from '../../buttons/PrimaryBtn';
-
 
 function ProfileImageModal() {
     const dispatch = useDispatch()
-    const { username, name, location, bio, image } = useSelector(store => store.profile.userData)
+    const { username, profileImage } = useSelector(store => store.profile.userData)
 
-    const editProfile = async (data) => {
-        const response = await updateUser(username, data)
+    const updateProfile = async (data) => {
+        const response = await updateUser(username, { profileImage: data })
         dispatch(updateUserData(response?.data))
         closeModal()
     }
+
+    const imagePath = `${username}/profile/${Date.now()}.jpg`
 
     const [isModalActice, setIsModalActice] = useState(false);
     const openModal = () => setIsModalActice(true);
@@ -28,13 +28,13 @@ function ProfileImageModal() {
     return (
         <div>
             <div className='relative flex flex-col items-center gap-2'>
-                <img src={image || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border min-h-[100px] max-h-[150px]' />
+                <img src={profileImage || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border min-h-[100px] max-h-[150px]' />
                 <MdChangeCircle size={30} className='absolute bottom-0 cursor-pointer' onClick={openModal} />
             </div>
             {
                 isModalActice &&
                 <PopupModal title="Update Profile Image!" closeModal={closeModal}>
-                    <DragAndDrop />
+                    <DragAndDrop updateImage={updateProfile} imagePath={imagePath}/>
                 </PopupModal>
             }
         </div>

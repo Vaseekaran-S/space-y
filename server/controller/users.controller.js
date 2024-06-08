@@ -40,6 +40,8 @@ const updateUser = async(req,res) => {
         const userName = req.params?.id
         const { username, password, email, isDeleted, ...data} = req.body
 
+        console.log(data);
+
         const updateUser = await User.updateOne({ username: userName }, { $set: data })
         if(updateUser.matchedCount === 0){
             return res.json({ msg: "User Not Found!", status: 404 })
