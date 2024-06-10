@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom'
 
 function ProfileAvatar() {
 
-  const username = useSelector( store => store.profile.username)
+  const { username, profileImage } = useSelector(store => store.profile.userData)
   const navigate = useNavigate()
   
   return (
     <>
       {(username) ?
-        <Avatar className='cursor-pointer rounded-full' size='100%' round={true} name={username} onClick={() => { (window.location.pathname == '/profile') ? navigate('/') : navigate('/profile') }} />
+        <Avatar src={profileImage} className='cursor-pointer object-cover object-top rounded-full' size='100%' round={true} name={username} onClick={() => { (window.location.pathname == '/profile') ? navigate('/') : navigate('/profile') }} />
         :
         <Avatar facebookId="100008343750912" size="40" onClick={() => navigate('/')} className='cursor-pointer' round={true} />
       }

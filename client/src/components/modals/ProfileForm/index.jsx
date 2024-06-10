@@ -17,9 +17,9 @@ import { updateUserData } from '../../../redux/profile/profileSlice';
 
 function ProfileModal() {
     const dispatch = useDispatch()
-    const { username, name, location, bio } = useSelector(store => store.profile.userData)
+    const { username, name, location, bio, role } = useSelector(store => store.profile.userData)
 
-    const initialValues = { name, location, bio }
+    const initialValues = { name, location, bio, role }
     const editProfileFieldsValidation = Yup.object({
         name: Yup.string().required('Name is required *')
     });
@@ -34,8 +34,8 @@ function ProfileModal() {
     const closeModal = () => setIsModalActice(false)
 
     return (
-        <div>
-            <Button title="Edit Profile" active={false} className="mt-4" onClick={() => setIsModalActice(true)} />
+        <>
+            <Button title="Edit Profile" active={false} className="mt-4 w-auto px-3 text-sm" onClick={() => setIsModalActice(true)} />
             {
                 isModalActice &&
                 <div className='fixed flex-center top-0 left-0 w-[100vw] h-[100vh] z-50'>
@@ -65,7 +65,7 @@ function ProfileModal() {
                     <div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={closeModal}></div>
                 </div>
             }
-        </div>
+        </>
     )
 }
 

@@ -37,17 +37,19 @@ function Profile() {
   return (
     <div className='p-10'>
       <div className="user-details grid grid-cols-4 gap-5">
-        <div className="col-span-1">
+        <div className="col-span-1 flex-center flex-col">
             <ProfileImageModal />
+            <ProfileModal />
         </div>
         <div className="col-span-3 p-2">
-          <h1 className='font-bold text-xl'>{user?.name}</h1>
-          <h2 className='font-medium text-gray-400'>{user?.role}</h2>
-          <h2 className='flex items-center'><FaMapMarkerAlt />{user?.location}</h2>
-          <p>
-            {user?.bio}
-          </p>
-          <ProfileModal />
+          <h2 className='font-bold text-xl'>{user?.name}</h2>
+          <h3 className='font-small text-sm text-gray-400 mb-2'>{user?.role}</h3>
+          <p>{user?.bio}</p>
+          {user?.location && <h3 className='flex gap-1 font-small text-sm items-center'><FaMapMarkerAlt size={11}/>{user?.location}</h3>}
+          <h4 className='font-medium text-sm'>Joined: {user?.joined}</h4>
+          <div className='mt-3'>
+            <span className="border px-2 py-1 font-medium text-md">{user?.followers?.length} followers | {user?.following?.length} following</span>
+          </div>
         </div>
       </div>
 
