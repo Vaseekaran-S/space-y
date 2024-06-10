@@ -1,5 +1,6 @@
 
-const User = require("../models/users")
+const User = require("../models/users");
+const { getMonthYear } = require("../utils/timezone");
 
 
 // GET : Getting all user data
@@ -27,9 +28,14 @@ const getUser = async(req,res) => {
         if(!userData){
             return res.json({ msg: "User Not Found!", status: 404})
         }
-        res.status(202).json(userData)
+
+        const userTimeZone = req.headers['x-user-timezone']
+        const joined = getMonthYear(userData?.createdAt, userTimeZone)
+        const data = { ...userData.toObject(), joined}
+        
+        res.status(202).json(data)
     }catch(err){
-        return res.json({ msg: "Something went wrong at Server!", status: 500})
+        res.json({ msg: "Something went wrong at Server!", status: 500})
     }
 }
 
