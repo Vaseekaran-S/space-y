@@ -20,16 +20,16 @@ function ProfileImageModal() {
     }
 
     const imagePath = `${username}/profile/${Date.now()}.jpg`
-
+    
     const [isModalActice, setIsModalActice] = useState(false);
     const openModal = () => setIsModalActice(true);
     const closeModal = () => setIsModalActice(false);
-
+    
     return (
         <div>
             <div className='relative flex flex-col items-center gap-2'>
                 <img src={profileImage || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border h-[125px] w-[125px] object-cover' />
-                <MdChangeCircle size={30} className='absolute bottom-0 cursor-pointer' onClick={openModal} />
+                <MdChangeCircle size={30} className='absolute bottom-[-10px] cursor-pointer' onClick={openModal} />
             </div>
             {
                 isModalActice &&

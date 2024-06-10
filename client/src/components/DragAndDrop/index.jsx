@@ -3,11 +3,13 @@ import { MdChangeCircle } from 'react-icons/md';
 import { FaFileImage } from "react-icons/fa";
 
 import Button from '../buttons/EditBtn'
+import Loader from '../Loader';
 
 import { uploadFileAtDb } from '../../api/uploads/index'
 
 export default function DragAndDrop({ updateImage, imagePath }) {
 
+    const [loaderActive, setLoaderActive] = useState(false)
     const [imageUrl, setImageUrl] = useState('')
     const [imageFile, setImageFile] = useState('')
 
@@ -36,12 +38,14 @@ export default function DragAndDrop({ updateImage, imagePath }) {
     const handleDragOver = e => e.preventDefault()
 
     const uploadFile = async () => {
+        setLoaderActive(true)
         const {image} = await uploadFileAtDb(imageFile, imagePath)
         updateImage(image)
     }
 
     return (
         <div className='flex flex-col items-center lg:w-[300px]'>
+            { loaderActive && <Loader color="white"/> }
             <div className={`w-full h-[200px] mb-3 rounded flex items-center justify-center p-2 ${imageUrl || 'bg-gray-800'}`} onDrop={handleDrop} onDragOver={handleDragOver}>
                 <input ref={inputRef} type="file" onChange={uploadImage} hidden accept="image/png, image/gif, image/jpeg" />
                 {!imageUrl &&
