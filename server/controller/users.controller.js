@@ -54,7 +54,7 @@ const updateUser = async(req,res) => {
 }
 
 
-// DELETE : Delet user data
+// DELETE : Delete user data
 const deleteUser = async(req,res) => {
     try{
         const username = req.params?.id

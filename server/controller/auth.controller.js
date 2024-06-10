@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken")
 
 const User = require("../models/users")
 
+const { sendSignUpMail } = require("../services/mail.service")
+
 // Create JWT token
 const secretKey = "space-y-token-provider"
 const getJwtToken = (username) => {
-    const token = jwt.sign({username}, secretKey, {expiresIn: "2h"})
+    const token = jwt.sign({username}, secretKey, {expiresIn: "24h"})
     return token
 }
 
@@ -37,35 +39,30 @@ const verifyHashPassword = async (password, hashedPassword) => {
 // POST : Create New User at DB with enscrypted password
 
 const createNewUser = async (req, res) => {
-    const { password, username, name, email} = req.body
-
+    const { password, username, name, email } = req.body
     if( !password || !username || !name || !email){
         console.log("Please! Enter all Details");
-        res.status(400).json({ msg: "Please! Enter all Details", status: 400 })
-        return
+        return res.status(400).json({ msg: "Please! Enter all Details", status: 400 })
     }
-    
     try {
         const encryptedPassword = await hashPassword(password)
-    
-        const user = new User({ username: username, password: encryptedPassword, name: name, email: email })
         const isUserExist = await User.findOne({ username: username })
         if (isUserExist) {
-            res.send({ msg: "User name already taken!", status: 302 })
-            return
+            return res.send({ msg: "User name already taken!", status: 302 })
         }
-        
+            
+        const user = new User({ username: username, password: encryptedPassword, name: name, email: email })
+        await sendSignUpMail(req?.body)
         await user.save().then(data => {
-            console.log(data);
             const token = getJwtToken(username)
-            res.send({ msg: "User Succesfully Created!", status: 202, token: token})
+            res.json({ msg: "User Succesfully Created!", status: 202, token: token})
         }).catch(err => {
             console.error(err);
             res.send(err.message)
         })
     } catch (err) {
-        console.error(err)
-        res.json({ msg: "Something went Wrong at Server!", status: 500 })
+        console.error(err.message)
+        res.json({ msg: "Something went Wrong at Server!", status: 500, err: err.message })
     }
 }
 
@@ -80,8 +77,6 @@ const veriryUser = async (req, res) => {
             return
         }
         const isValid = await verifyHashPassword(password, user?.password)
-        console.log("Validity : ", isValid);
-
         if (isValid) {
             const token = getJwtToken(username)
             res.json({ msg: "User Authentication Matched!", status: 202, token: token })
