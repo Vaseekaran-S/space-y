@@ -51,7 +51,7 @@ export default function DragAndDrop({ updateImage, imagePath }) {
                 {!imageUrl &&
                     <button onClick={selectImage} className='text-white fond-medium p-5 border-dashed rounded border-2 border-white absolute'>UPLOAD IMAGE</button>
                 }
-                {imageUrl && <img src={imageUrl} alt='Profile Image' className='h-full rounded' />}
+                {imageUrl && <img src={imageUrl} alt='Profile Photo' className='h-full rounded' />}
             </div>
             <Button title={<>{imageUrl ? <MdChangeCircle className='mr-2' /> : <FaFileImage className='mr-2' />}{imageUrl ? 'Change Image' : 'Upload Image'}</>} onClick={selectImage} />
             {imageUrl && <Button title="Save & Upload" active={true} className="mt-3" onClick={uploadFile} />}
