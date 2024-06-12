@@ -23,19 +23,19 @@ const getAllUser = async(req,res) => {
 // GET : Getting user data
 const getUser = async(req,res) => {
     try{
-        const username = req.params.id
+        const username = req.params?.id
         const userData = await User.findOne({ username: username}).select('-password')
         if(!userData){
             return res.json({ msg: "User Not Found!", status: 404})
         }
 
         const userTimeZone = req.headers['x-user-timezone']
-        const joined = getMonthYear(userData?.createdAt, userTimeZone)
+        const joined = userTimeZone? getMonthYear(userData?.createdAt, userTimeZone) : userData?.createdAt
         const data = { ...userData.toObject(), joined}
         
         res.status(202).json(data)
     }catch(err){
-        res.json({ msg: "Something went wrong at Server!", status: 500})
+        res.json({ msg: "Something went wrong at Server!", status: 500, err: err.message})
     }
 }
 
