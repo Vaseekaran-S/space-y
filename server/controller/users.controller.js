@@ -1,6 +1,6 @@
 
 const User = require("../models/users");
-const { followUserService, unFollowUserService } = require("../services/user.service");
+const { followUserService, unFollowUserService, searchUserService } = require("../services/user.service");
 const { getMonthYear } = require("../utils/timezone");
 
 
@@ -101,11 +101,27 @@ const unFollowUser = async(req, res) => {
 }
 
 
+// GET : Search User
+const searchUser = async(req, res) => {
+    try {
+        const { user } = req.query
+        if(!user){
+            return res.json({ msg: "Query for this api is required!", status: 404 })
+        }
+        const response = await searchUserService(user)
+        res.status(202).json({ msg: response })
+    } catch (err) {
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
+    }
+}
+
+
 module.exports = {
     getAllUser,
     getUser,
     updateUser,
     deleteUser,
     followUser,
-    unFollowUser
+    unFollowUser,
+    searchUser
 }

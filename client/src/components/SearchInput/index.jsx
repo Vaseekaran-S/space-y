@@ -2,7 +2,7 @@ import React from 'react'
 
 function SearchInput() {
     return (
-        <form className="flex items-center max-w-sm mx-auto">
+        <div className="flex items-center max-w-sm mx-auto">
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full px-2 py-1.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500" placeholder="Search..." required />
@@ -13,7 +13,7 @@ function SearchInput() {
                 </svg>
                 <span className="sr-only">Search</span>
             </button>
-        </form>
+        </div>
 
     )
 }

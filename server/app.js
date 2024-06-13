@@ -34,6 +34,4 @@ app.use("/api/auth", authRouter)
 const uploadRouter = require("./routes/upload.routes")
 app.use("/api/upload", uploadRouter)
 
-app.listen(3001,()=>{
-    console.log("Server Running http://localhost:3001");
-})
+module.exports = app
