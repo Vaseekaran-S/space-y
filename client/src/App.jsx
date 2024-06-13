@@ -40,7 +40,7 @@ export default function App() {
             <Suspense fallback={<Loader />}>
                 <Layout>
                     <Routes>
-                        <Route path='/' element={isAuthenticated ? <Home /> : <Login />} />
+                        <Route exact path='/' element={isAuthenticated ? <Home /> : <Login />} />
                         {isAuthenticated ?
                             <>
                                 <Route path='/profile' element={<Profile />} />

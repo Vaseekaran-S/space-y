@@ -38,8 +38,8 @@ function ProfileModal() {
             <Button title="Edit Profile" active={false} className="mt-4 w-auto px-3 text-sm" onClick={() => setIsModalActice(true)} />
             {
                 isModalActice &&
-                <div className='fixed flex-center top-0 left-0 w-[100vw] h-[100vh] z-50'>
-                    <div className="bg-white rounded p-7 z-50">
+                <div className='fixed flex-center top-0 left-0 w-[100vw] h-[100vh] z-50 px-2'>
+                    <div className="bg-white rounded p-7 z-50 w-full max-w-[400px]">
                         <div className='flex items-start justify-between border-b-2 border-b-black'>
                             <h2 className='text-lg font-medium pb-2'>Update your Profile!</h2>
                             <FiX className='text-xl font-bold text-white bg-red-900 p-1 rounded-full cursor-pointer' onClick={closeModal}/>
@@ -47,7 +47,7 @@ function ProfileModal() {
 
                         <Formik initialValues={initialValues} validationSchema={editProfileFieldsValidation}  onSubmit={editProfile}>
                             <Form>
-                                <div className="flex-center flex-col m-auto mt-6 gap-4 w-[300px] lg:w-[350px]">
+                                <div className="flex-center flex-col m-auto mt-6 gap-4 md:w-[300px] lg:w-[350px]">
                                     {EditProfile?.map((field, index) => {
                                         return (
                                             <div key={index} className='w-full'>

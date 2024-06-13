@@ -47,7 +47,6 @@ const updateUser = async(req,res) => {
     try{
         const userName = req.params?.id
         const { username, password, email, isDeleted, ...data} = req.body
-
         const updateUser = await User.updateOne({ username: userName }, { $set: data })
         if(updateUser.matchedCount === 0){
             return res.json({ msg: "User Not Found!", status: 404 })
@@ -83,10 +82,8 @@ const followUser = async(req, res) => {
         const followerId = req.params?.id
         const followingId = req.query?.id
         const response = await followUserService(followerId, followingId)
-        console.log(response);
         res.status(202).json({ msg: response })
     } catch (err) {
-        console.log(err.message);
         res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }
@@ -97,10 +94,8 @@ const unFollowUser = async(req, res) => {
         const followerId = req.params?.id
         const followingId = req.query?.id
         const response = await unFollowUserService(followerId, followingId)
-        console.log(response);
         res.status(202).json({ msg: response })
     } catch (err) {
-        console.log(err.message);
         res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }

@@ -23,3 +23,24 @@ export const updateUser = async(username, data) =>{
         return {}
     }
 }
+
+
+// POST : Follow User
+export const followUser = async(curUserId, followingId) =>{
+    try{
+        const response = await axios.post(`/api/users/follow/${curUserId}?id=${followingId}`)
+        return (response.status == 200)? response?.data : {}
+    }catch(err){
+        return {}
+    }
+}
+
+// POST : Follow User
+export const unFollowUser = async(curUserId, followingId) =>{
+    try{
+        const response = await axios.post(`/api/users/unfollow/${curUserId}?id=${followingId}`)
+        return (response.status == 200)? response?.data : {}
+    }catch(err){
+        return {}
+    }
+}

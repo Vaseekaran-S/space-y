@@ -44,31 +44,31 @@ function Profile() {
 
   const curUser = useSelector(store => store.profile.userData)
 
-  useEffect(() => {
-    if (username === curUser?.username || !username) setIsOwnProfile(true)
-    const fetchData = async () => {
-      if (username === curUser?.username || !username) {
-        setIsOwnProfile(true)
+  const fetchUserData = async () => {
+    const data = await getUser(username);
+    setUser(data);
+    setIsOwnProfile(false)
+    if (!data?.username) navigate("/")
+  }
 
-        setUser(curUser);
-      } else {
-        const data = await getUser(username);
-        setUser(data);
-        if (!data?.username) navigate("/")
-      }
-    };
-    fetchData();
-  }, [username])
+  useEffect(() => {
+    if (username === curUser?.username || !username) {
+      setIsOwnProfile(true)
+      setUser(curUser);
+    } else {
+      fetchUserData();
+    }
+  }, [username, curUser])
 
   return (
-    <div className='p-10'>
+    <div className='p-5 lg:p-10'>
       <div className="user-details grid grid-cols-4 gap-5">
-        <div className="col-span-1 flex-center flex-col">
-          <ProfileImageModal isOwnProfile={isOwnProfile} username={username} profileImage={user?.profileImage} />
+        <div className="col-span-4 md:col-span-1 flex-center flex-col">
+          <ProfileImageModal isOwnProfile={isOwnProfile} username={user?.username} profileImage={user?.profileImage} />
           {isOwnProfile && <ProfileModal />}
-          {isOwnProfile || <IsFollow />}
+          {isOwnProfile || <IsFollow userId={user?._id} fetchUserData={fetchUserData} />}
         </div>
-        <div className="col-span-3 p-2">
+        <div className="col-span-4 md:col-span-3 p-2">
           <h2 className='font-bold text-xl'>{user?.name}</h2>
           <h3 className='font-small text-sm text-gray-400 mb-2'>{user?.role}</h3>
           <p>{user?.bio}</p>
