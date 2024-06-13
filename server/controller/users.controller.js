@@ -1,5 +1,6 @@
 
 const User = require("../models/users");
+const { followUserService, unFollowUserService } = require("../services/user.service");
 const { getMonthYear } = require("../utils/timezone");
 
 
@@ -14,8 +15,8 @@ const getAllUser = async(req,res) => {
         console.log(usersData);
         res.json(usersData)
     }catch(err){
-        console.log("Error : ",err);
-        return res.json({ msg: "Something went wrong at Server!", status: 500})
+        console.log(err);
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }
 
@@ -35,7 +36,8 @@ const getUser = async(req,res) => {
         
         res.status(202).json(data)
     }catch(err){
-        res.json({ msg: "Something went wrong at Server!", status: 500, err: err.message})
+        console.log(err);
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }
 
@@ -46,8 +48,6 @@ const updateUser = async(req,res) => {
         const userName = req.params?.id
         const { username, password, email, isDeleted, ...data} = req.body
 
-        console.log(data);
-
         const updateUser = await User.updateOne({ username: userName }, { $set: data })
         if(updateUser.matchedCount === 0){
             return res.json({ msg: "User Not Found!", status: 404 })
@@ -55,7 +55,7 @@ const updateUser = async(req,res) => {
         res.json({ msg: "Profile Updated!", status: 202, data: data })
     }catch(err){
         console.log(err);
-        res.json({ msg: "Something went wrong at Server!", status: 500 })
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }
 
@@ -67,12 +67,41 @@ const deleteUser = async(req,res) => {
 
         const deleteUser = await User.updateOne({ username: username}, { $set: { isDeleted: true } })
         if(deleteUser.matchedCount === 0){
-            return res.json({ msg: "User Not Found!", status: 404 })
+            return res.status(404).json({ msg: "User Not Found!", status: 404 })
         }
-        res.json({ msg: "Used Deleted!", status: 202 })
+        res.status(202).json({ msg: "Used Deleted!", status: 202 })
     }catch(err){
-        console.log(err);
-        res.json({ msg: "Something went wrong at Server!", status: 500 })
+        console.log(err.message);
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
+    }
+}
+
+
+// PUT : Follow A User
+const followUser = async(req, res) => {
+    try {
+        const followerId = req.params?.id
+        const followingId = req.query?.id
+        const response = await followUserService(followerId, followingId)
+        console.log(response);
+        res.status(202).json({ msg: response })
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
+    }
+}
+
+// PUT : Follow A User
+const unFollowUser = async(req, res) => {
+    try {
+        const followerId = req.params?.id
+        const followingId = req.query?.id
+        const response = await unFollowUserService(followerId, followingId)
+        console.log(response);
+        res.status(202).json({ msg: response })
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }
 }
 
@@ -81,5 +110,7 @@ module.exports = {
     getAllUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    followUser,
+    unFollowUser
 }
