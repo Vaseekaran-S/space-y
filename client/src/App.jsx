@@ -44,6 +44,7 @@ export default function App() {
                         {isAuthenticated ?
                             <>
                                 <Route path='/profile' element={<Profile />} />
+                                <Route path='/:username' element={<Profile />} />
                             </>
                             :
                             <>

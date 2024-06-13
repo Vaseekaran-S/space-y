@@ -9,9 +9,8 @@ import { updateUserData } from '../../../redux/profile/profileSlice';
 import PopupModal from '..';
 import DragAndDrop from '../../DragAndDrop';
 
-function ProfileImageModal() {
+function ProfileImageModal({ isOwnProfile, username, profileImage }) {
     const dispatch = useDispatch()
-    const { username, profileImage } = useSelector(store => store.profile.userData)
 
     const updateProfile = async (data) => {
         const response = await updateUser(username, { profileImage: data })
@@ -29,7 +28,7 @@ function ProfileImageModal() {
         <div>
             <div className='relative flex flex-col items-center gap-2'>
                 <img src={profileImage || "/images/profile/unknown.jpg"} alt="profile" className='rounded p-2 border h-[125px] w-[125px] object-cover' />
-                <MdChangeCircle size={30} className='absolute bottom-[-10px] cursor-pointer' onClick={openModal} />
+                { isOwnProfile && <MdChangeCircle size={30} className='absolute bottom-[-10px] cursor-pointer' onClick={openModal} /> }
             </div>
             {
                 isModalActice &&
