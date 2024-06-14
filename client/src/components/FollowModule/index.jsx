@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Button from '../buttons/EditBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { followUserAction, unFollowUserAction } from '../../actions/users'
 
