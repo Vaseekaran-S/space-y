@@ -44,3 +44,14 @@ export const unFollowUser = async(curUserId, followingId) =>{
         return {}
     }
 }
+
+// GET : Search Users by username
+export const searchUser = async(username) => {
+    try{
+        const response = await axios.get(`/api/users/search?user=${username}`)
+        return (response.status == 202)? response.data : {}
+    }catch(err){
+        console.log(err);
+        return {}
+    }
+}

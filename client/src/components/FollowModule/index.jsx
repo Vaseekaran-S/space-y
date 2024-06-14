@@ -32,11 +32,7 @@ function IsFollow({ userId, fetchUserData }) {
 
   return (
     <div className='mt-3'>
-      {isFollowing ?
-        <Button title="Following" className="w-auto px-3 py-1 bg-blue-600 text-white text-sm" onClick={unFollow} />
-        :
-        <Button title={`Follow ${isFollowed? "Back": ""}`} className="w-auto px-3 py-1 bg-green-600 text-white text-sm" onClick={follow} />
-      }
+      <button className={`w-auto px-3 py-1 rounded font-medium text-white text-sm ${isFollowing?'bg-blue-600':'bg-green-600'}`} onClick={isFollowing?unFollow:follow} > {isFollowing?'Following':`Follow ${isFollowed? "Back": ""}`}</button>
     </div>
   )
 }
