@@ -1,31 +1,12 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/public/(.*)",
-        "dest": "/public/$1"
-      },
-      {
-        "src": "/favicon.ico",
-        "dest": "/favicon.ico"
-      },
-      {
-        "src": "/manifest.json",
-        "dest": "/manifest.json"
-      },
-      {
-        "src": "/robots.txt",
-        "dest": "/robots.txt"
-      },
-      {
-        "src": "/sitemap.xml",
-        "dest": "/sitemap.xml"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/index.html"
-      }
-    ],
-    "cleanUrls": true
-  }
-  
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/static/(.*)", "destination": "/static/$1" },
+    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/manifest.json", "destination": "/manifest.json" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
