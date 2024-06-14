@@ -11,10 +11,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { verifyToken } from './api/auth';
 import { getUser } from './api/users';
 
-const Home = import('./pages/Home');
-const Login = import('./pages/Login');
-const SignUp = import('./pages/SignUp');
-const Profile = import('./pages/Profile');
+const Home = React.lazy(() => import('./pages/Home'));
+const Login = React.lazy(() => import('./pages/Login'));
+const SignUp = React.lazy(() => import('./pages/SignUp'));
+const Profile = React.lazy(() => import('./pages/Profile'));
 
 export default function App() {
 
