@@ -108,8 +108,11 @@ const searchUser = async(req, res) => {
         if(!user){
             return res.json({ msg: "Query for this api is required!", status: 404 })
         }
-        const response = await searchUserService(user)
-        res.status(202).json({ msg: response })
+        const data = await searchUserService(user)
+        if(data?.length >= 0)
+            res.status(202).json(data) 
+        else
+            res.status(500).json({ msg: "Something went wrong at Server!", err: data })
     } catch (err) {
         res.status(500).json({ msg: "Something went wrong at Server!", err: err.message })
     }

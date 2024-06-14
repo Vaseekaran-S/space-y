@@ -41,7 +41,9 @@ const unFollowUserService = async (followerId, followingId) => {
 // Service: Search User
 const searchUserService = async(user) => {
     try {
-        const data = await User.aggregate([{ $match: { username: { $regex: user, $options: 'i' } } }, { $limit: 3 }])
+        const data = await User.aggregate([{ $match: { username: { $regex: user, $options: 'i' } } }, 
+            { $limit: 3 },
+            { $project: { username: 1, profileImage: 1, name: 1 } }])
         return data
     } catch (err) {
         return err.message
