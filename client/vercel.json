@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "routes": [
+      {
+        "src": "/public/(.*)",
+        "dest": "/public/$1"
+      },
+      {
+        "src": "/favicon.ico",
+        "dest": "/favicon.ico"
+      },
+      {
+        "src": "/manifest.json",
+        "dest": "/manifest.json"
+      },
+      {
+        "src": "/robots.txt",
+        "dest": "/robots.txt"
+      },
+      {
+        "src": "/sitemap.xml",
+        "dest": "/sitemap.xml"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ],
+    "cleanUrls": true
+  }
+  

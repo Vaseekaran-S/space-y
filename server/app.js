@@ -22,6 +22,11 @@ mongoose.connect(mongoURI).then(() =>{
 }).catch((err) => console.log(err));
 
 
+app.get("/", (req, res)=> {
+    res.json({ msg: "Server Working!"})
+})
+
+
 // User SignUp and Login
 
 const userRouter = require("./routes/users.routes")
