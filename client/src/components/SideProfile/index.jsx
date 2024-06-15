@@ -1,9 +1,22 @@
 import { useSelector } from "react-redux"
 import ProfileAvatar from "../Avatar";
+import { useEffect, useState } from "react";
+
+const { getNotifications } = require("../../api/notifications")
 
 export default function SideProfileBar() {
+    const currentUser = useSelector( store => store.profile.userData)
+    const [notifications, setNotifications] = useState([])
+    console.log(currentUser?._id);
 
-    const currentUser = useSelector( store => store.profile.userProfile)
+    useEffect(()=>{
+        const fetchData = async() => {
+            const data = await getNotifications(currentUser?._id)
+            setNotifications(data)
+            console.log("Data ",data);
+        }
+        fetchData()
+    },[currentUser])
 
     return (
         <div className="w-[300px] my-3 mx-2 z-20">
@@ -15,7 +28,16 @@ export default function SideProfileBar() {
                 <p>{ currentUser.username }</p>
             </div>
             <div className="relative flex flex-col items-center p-2 py-5 mt-4 shadow-lg border rounded">
-                <p>No activity found</p>
+                { notifications?.length > 0 
+                ?
+                    
+                    notifications?.map(notification=>[
+                        <p>{notification?.message}</p>
+                    ])
+                    
+                    :
+                    <p>No activity found</p>
+                 }
             </div>
         </div>
     )
