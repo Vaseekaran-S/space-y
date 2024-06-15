@@ -1,5 +1,6 @@
 
 const User = require("../models/users")
+const Notification = require("../models/notifications")
 
 // Service: Follow User 
 const followUserService = async (followerId, followingId) => {
@@ -10,6 +11,11 @@ const followUserService = async (followerId, followingId) => {
         if (!followerData.following.includes(followingId)) {
             await followerData.updateOne({ $push: { following: followingId } })
             await followingUserData.updateOne({ $push: { followers: followerId } })
+
+            const message = `${followerData?.username} started following you`
+            const notification =  await Notification.create({ user: followingUserData?._id, type: "Follow", message, actioner: followerData?._id })
+            const noti = await notification.save()
+            
             return "User followed"
         } else {
             return "User already following"

@@ -39,4 +39,8 @@ app.use("/api/auth", authRouter)
 const uploadRouter = require("./routes/upload.routes")
 app.use("/api/upload", uploadRouter)
 
+// Files Notification Router
+const notificationRouter = require("./routes/notification.routes")
+app.use("/api/notification", notificationRouter)
+
 module.exports = app
