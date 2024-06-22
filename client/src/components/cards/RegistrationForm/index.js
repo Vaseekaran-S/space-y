@@ -92,7 +92,7 @@ export default function RegistrationForm({ type }) {
             {isAlertOn && <Alerts {...alertData} />}
             {isLoaderOn && <Loader />}
             <div className='h-full flex-center flex-col gap-5'>
-                <div className="rounded shadow border p-8 bg-white max-w-sm w-[350px] hover:shadow-lg">
+                <div className="rounded shadow border p-8 bg-white max-w-sm sm:min-w-[350px] hover:shadow-lg">
                     <Link to="/">
                         <img src='/logo/logo.png' className='h-[10vh] object-contain w-full' alt='logo' />
                     </Link>
@@ -105,7 +105,7 @@ export default function RegistrationForm({ type }) {
                             <div className="flex-center flex-col m-auto mt-6 gap-4 w-[250px]">
                                 {fields?.map((field, index) => {
                                     return (
-                                        <div key={index}>
+                                        <div key={index} className='w-full'>
                                             <InputField {...field}/>
                                             <ErrorMessage {...field} component="div" className='text-red-900 font-medium text-xs mt-1 ml-1' />
                                         </div>
@@ -121,7 +121,7 @@ export default function RegistrationForm({ type }) {
                         </h2>
                     }
                 </div>
-                <div className="rounded shadow border p-5 w-[350px] hover:shadow-lg">
+                <div className="rounded shadow border p-5 sm:min-w-[350px] hover:shadow-lg">
                     <h2 className='font-medium text-lg text-center'>
                         {boxTitle} <Link className='text-blue-700 hover:text-blue-800 ml-1' to={bottomAction}>{bottomBtn}</Link>
                     </h2>
