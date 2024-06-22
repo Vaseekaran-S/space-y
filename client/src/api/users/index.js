@@ -5,7 +5,7 @@ import axios from "../axios"
 export const getUser = async(username) => {
     try{
         const response = await axios.get(`/api/users/${username}`)
-        return (response.status == 202)? response.data : {}
+        return (response?.status === 202)? response.data : {}
     }catch(err){
         console.log(err);
         return {}
@@ -17,7 +17,7 @@ export const getUser = async(username) => {
 export const updateUser = async(username, data) =>{
     try{
         const response = await axios.put(`/api/users/${username}`, {...data})
-        return (response.status == 200)? response.data : {}
+        return (response?.status === 200)? response.data : {}
     }catch(err){
         console.log(err);
         return {}
@@ -29,7 +29,7 @@ export const updateUser = async(username, data) =>{
 export const followUser = async(curUserId, followingId) =>{
     try{
         const response = await axios.post(`/api/users/follow/${curUserId}?id=${followingId}`)
-        return (response.status == 200)? response?.data : {}
+        return (response?.status === 200)? response?.data : {}
     }catch(err){
         return {}
     }
@@ -39,7 +39,7 @@ export const followUser = async(curUserId, followingId) =>{
 export const unFollowUser = async(curUserId, followingId) =>{
     try{
         const response = await axios.post(`/api/users/unfollow/${curUserId}?id=${followingId}`)
-        return (response.status == 200)? response?.data : {}
+        return (response?.status === 200)? response?.data : {}
     }catch(err){
         return {}
     }
@@ -49,7 +49,7 @@ export const unFollowUser = async(curUserId, followingId) =>{
 export const searchUser = async(username) => {
     try{
         const response = await axios.get(`/api/users/search?user=${username}`)
-        return (response.status == 202)? response.data : {}
+        return (response?.status === 202)? response.data : {}
     }catch(err){
         console.log(err);
         return {}

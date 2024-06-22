@@ -9,6 +9,7 @@ export default [
         placeholder: "Password",
         name: "password",
         type: "password",
-        id: "password"
+        id: "password",
+        autoComplete: "off"
     },
 ]

@@ -42,7 +42,7 @@ export const verifyToken = async() => {
                 Authorization: token
             }
         })
-        const status = (response?.data?.status == 202)? response?.data : false
+        const status = (response?.data?.status === 202)? response?.data : false
         return status
     }catch(error){
         return false

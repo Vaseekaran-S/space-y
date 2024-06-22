@@ -38,7 +38,7 @@ export default function Layout({ children }) {
                     {children}
                 </div>
                 <div className={`h-[90vh] hidden sticky left-0 top-0 ${position} ${auth && 'lg:block'}`}>
-                    <SideProfileBar />
+                    { auth && <SideProfileBar /> }
                 </div>  
             </div>
         </div>

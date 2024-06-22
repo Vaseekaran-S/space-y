@@ -1,5 +1,5 @@
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FiMenu, FiX } from "react-icons/fi";
 import Avatar from '../Avatar';
 import SearchInput from '../SearchInput';
@@ -11,7 +11,7 @@ export default function NavBar({ sideBarToggle, sideBarState }) {
             <div className="h-[10vh] flex items-center justify-between px-5 shadow-lg z-50 bg-white">
                 <div className='flex'>
                     <Link to="/">
-                        <img src='/logo/logo.png' className='h-[10vh] object-contain w-full' />
+                        <img src='/logo/logo.png' alt='SpaceY Logo' className='h-[10vh] object-contain w-full' />
                     </Link>
                 </div>
                 <div className='relative flex items-center justify-center hidden lg:block'>

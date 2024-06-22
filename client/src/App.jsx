@@ -15,6 +15,7 @@ const Home = React.lazy(() => import('./pages/Home'));
 const Login = React.lazy(() => import('./pages/Login'));
 const SignUp = React.lazy(() => import('./pages/SignUp'));
 const Profile = React.lazy(() => import('./pages/Profile'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 export default function App() {
 
@@ -25,10 +26,11 @@ export default function App() {
         const isAlreadyAuthenticated = await verifyToken()
         dispatch(setAuthentication(!!isAlreadyAuthenticated))
 
-        const username = isAlreadyAuthenticated?.user?.username
-        const userData = await getUser(username)
-
-        dispatch(setUserData(userData))
+        if(isAlreadyAuthenticated){
+            const username = isAlreadyAuthenticated?.user?.username
+            const userData = await getUser(username)
+            dispatch(setUserData(userData))
+        }
     }
 
     useEffect(() => {
@@ -52,7 +54,7 @@ export default function App() {
                                 <Route path='/signup' element={<SignUp />} />
                             </>
                         }
-                        <Route path="*" element={"Not Found"} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Layout>
             </Suspense>
