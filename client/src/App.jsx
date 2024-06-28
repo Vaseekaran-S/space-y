@@ -61,7 +61,7 @@ export default function App() {
                                 <Route path='/signup' element={<SignUp />} />
                             </>
                         }
-                        <Route path="*" element={<NotFound />} />
+                        <Route path="/404" element={<NotFound />} />
                     </Routes>
                 </Layout>
             </Suspense>

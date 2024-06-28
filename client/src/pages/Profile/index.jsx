@@ -48,7 +48,7 @@ function Profile() {
     const data = await getUser(username);
     setUser(data);
     setIsOwnProfile(false)
-    if (!data?.username) navigate("/")
+    if (!data?.username) navigate("/404")
   }
 
   useEffect(() => {

@@ -11,8 +11,8 @@ function IsFollow({ userId, fetchUserData }) {
   const [isFollowed, setIsFollowed] = useState(false)
 
   useEffect(() => {
-    setIsFollowing(curUser.following.includes(userId))
-    setIsFollowed(curUser.followers.includes(userId))
+    setIsFollowing(curUser?.following?.includes(userId))
+    setIsFollowed(curUser?.followers?.includes(userId))
   }, [curUser, userId])
 
   const follow = async (event) => {
